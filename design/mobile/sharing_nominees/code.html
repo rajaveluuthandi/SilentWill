@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#29434e",
+                        "on-background": "#2b3437",
+                        "on-tertiary-container": "#474d67",
+                        "surface-container-high": "#e3e9ec",
+                        "on-secondary": "#f2faff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f8f9fa",
+                        "on-error": "#fff7f6",
+                        "on-surface": "#2b3437",
+                        "primary-dim": "#435467",
+                        "error": "#9f403d",
+                        "surface-dim": "#d1dce0",
+                        "secondary-fixed-dim": "#bdd9e6",
+                        "on-primary": "#f5f8ff",
+                        "tertiary-dim": "#4c526c",
+                        "tertiary-container": "#d6dbfb",
+                        "inverse-on-surface": "#9b9d9e",
+                        "tertiary-fixed": "#d6dbfb",
+                        "outline": "#737c7f",
+                        "surface-container-highest": "#dbe4e7",
+                        "secondary-dim": "#3d5762",
+                        "primary-container": "#d2e4fb",
+                        "primary-fixed": "#d2e4fb",
+                        "on-primary-container": "#425366",
+                        "on-primary-fixed": "#304153",
+                        "tertiary": "#585e78",
+                        "primary-fixed-dim": "#c4d6ed",
+                        "inverse-primary": "#d5e7fe",
+                        "surface-tint": "#4f6073",
+                        "surface-container-low": "#f1f4f6",
+                        "primary": "#4f6073",
+                        "on-primary-fixed-variant": "#4c5d70",
+                        "on-surface-variant": "#586064",
+                        "surface": "#f8f9fa",
+                        "on-error-container": "#752121",
+                        "surface-variant": "#dbe4e7",
+                        "on-tertiary-fixed": "#353b53",
+                        "on-secondary-container": "#3c5561",
+                        "error-container": "#fe8983",
+                        "secondary-fixed": "#cbe7f5",
+                        "inverse-surface": "#0c0f10",
+                        "error-dim": "#4e0309",
+                        "background": "#f8f9fa",
+                        "surface-container": "#eaeff1",
+                        "tertiary-fixed-dim": "#c8cdec",
+                        "secondary": "#49636f",
+                        "on-tertiary-fixed-variant": "#515771",
+                        "on-secondary-fixed-variant": "#455f6b",
+                        "on-tertiary": "#faf8ff",
+                        "secondary-container": "#cbe7f5",
+                        "outline-variant": "#abb3b7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .ios-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="security">security</span>
+<h1 class="text-slate-800 dark:text-slate-100 font-['Manrope'] font-extrabold tracking-tighter text-lg">Digital Curator</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a professional man in soft studio lighting with a neutral gray background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc65PeLP9L5re74qklGBdoRpW5FoZ681mnsCKAcvuMBrC1hIFAXOWU_FHBL-5UsrzsxL2NS6cILZ1QQT0MN7AHIrbY9W8ZrdkSnEWp5vEO5mzDOXwRkqoYy9kZphzRNDUDce1o_u3Yx7uqc88a_9sDXI4lIBHeO94hA92d9hJOBk2baAv2OWdDCHvVQYMSDe30YYKNr5f9BIYWLE706CITzwWLXBAZvo5eD0d890AYYrAfjjGcbqqMC9Xr9TVZZgkYZMpVBtyd9njK"/>
+</div>
+</div>
+</header>
+<main class="pt-20 pb-32 px-6">
+<!-- Full Hidden Mode Active Banner -->
+<section class="mb-8">
+<div class="ios-glass p-4 rounded-full border border-white/40 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<div class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</div>
+<span class="text-primary font-semibold text-sm tracking-wide">Full Hidden Mode Active</span>
+</div>
+<span class="material-symbols-outlined text-primary text-sm" data-icon="visibility_off">visibility_off</span>
+</div>
+</section>
+<!-- Editorial Headline -->
+<section class="mb-10">
+<h2 class="font-headline font-extrabold text-4xl tracking-tight text-on-surface mb-2">Nominees</h2>
+<p class="text-on-surface-variant text-base leading-relaxed max-w-[85%]">Select the trusted individuals who will receive access to your vault after verification.</p>
+</section>
+<!-- Nominees List -->
+<div class="space-y-4">
+<!-- Sarah Jenkins (Verified) -->
+<div class="bg-surface-container-lowest p-5 rounded-full flex items-center justify-between transition-all active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full overflow-hidden">
+<img alt="Sarah Jenkins" class="w-full h-full object-cover" data-alt="headshot of a young woman with a friendly smile, natural lighting, outdoors with soft greenery background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtvOtoluca9QrGJh3dLnPb9YiELA_jZ61kpzPdGIIyxcSK1VXIlnm7StdenEflhqcbZ1mhcGoX3G00k-UbCUtl2v7d2LxvvCYwkvWwq8-IjpoSje0n9khPAmWq-2qbEHLD9SAJeJ3tVNGrvFJetyMmecqXZIkqTNPKurF9v4DUBUehUTujtAhR4QF_fNFYgbcdnPeFtFOVhmWIkEl7pON0xt_04CwNkhesqfLBn476nv39wMYe61616RO7wAoAQhEj39P-DTtXgIzn"/>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg text-on-surface">Sarah Jenkins</h3>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="material-symbols-outlined text-primary text-base" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="text-primary font-semibold text-xs uppercase tracking-wider">Verified</span>
+</div>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span>
+</button>
+</div>
+<!-- Marcus Jordan (Pending) -->
+<div class="bg-surface-container-lowest p-5 rounded-full flex items-center justify-between transition-all active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full overflow-hidden">
+<img alt="Marcus Jordan" class="w-full h-full object-cover" data-alt="portrait of a confident man with short hair looking at the camera, clean studio lighting, high-end feel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkpfz9KF-Psoxv5rvNosAh0QvSVIiCUYMdB6_1oSeE1FgPOTyUpKc9XYl4-fUMOouyfeXOCfKqPzr2qpq5vlUHJOHNbnnzcebncWzTRHNecOOgLIAcrHS0XLAocHYW4eJarYI2prPIB8vHbhYgQXmzGuLd1MLEYhkYXIWh96JlxD7mszFiPkIL3hqZT-xSWx68S-uHGyGx9_NU0plhng3KI7jWGwFE1kkpFXXrDQ6m_YAE3ELeT7yrGmg9yBM3Ptvjo2D6X86nEMhZ"/>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg text-on-surface">Marcus Jordan</h3>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="material-symbols-outlined text-outline-variant text-base" data-icon="pending">pending</span>
+<span class="text-outline-variant font-medium text-xs uppercase tracking-wider">Pending</span>
+</div>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span>
+</button>
+</div>
+<!-- Add Backup Nominee Card -->
+<div class="border-2 border-dashed border-outline-variant/30 p-6 rounded-full flex flex-col items-center justify-center gap-2 group active:bg-surface-container-low transition-colors">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+</div>
+<span class="font-headline font-bold text-on-surface-variant">Add backup nominee</span>
+</div>
+</div>
+<!-- Security Hint -->
+<div class="mt-12 p-6 bg-secondary-container/30 rounded-full flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary" data-icon="info">info</span>
+<p class="text-on-secondary-container text-sm leading-relaxed">
+                Nominees will only be granted access after your pre-defined inactivity period and manual identity verification.
+            </p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 rounded-t-3xl bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-[0_-4px_24px_rgba(0,0,0,0.04)] px-6 pb-8 pt-3 flex justify-between items-center">
+<!-- Vault Tab -->
+<button class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined mb-1" data-icon="lock">lock</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-tight">Vault</span>
+</button>
+<!-- Assets Tab -->
+<button class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined mb-1" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-tight">Assets</span>
+</button>
+<!-- Nominees Tab (Active) -->
+<button class="flex flex-col items-center justify-center text-slate-900 dark:text-white bg-white/50 dark:bg-slate-800/50 rounded-xl px-4 py-1.5 hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined mb-1" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-tight">Nominees</span>
+</button>
+<!-- Verify Tab -->
+<button class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined mb-1" data-icon="verified_user">verified_user</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-tight">Verify</span>
+</button>
+</nav>
+</body></html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Add New Asset | Digital Curator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#29434e",
+                    "on-background": "#2b3437",
+                    "on-tertiary-container": "#474d67",
+                    "surface-container-high": "#e3e9ec",
+                    "on-secondary": "#f2faff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f8f9fa",
+                    "on-error": "#fff7f6",
+                    "on-surface": "#2b3437",
+                    "primary-dim": "#435467",
+                    "error": "#9f403d",
+                    "surface-dim": "#d1dce0",
+                    "secondary-fixed-dim": "#bdd9e6",
+                    "on-primary": "#f5f8ff",
+                    "tertiary-dim": "#4c526c",
+                    "tertiary-container": "#d6dbfb",
+                    "inverse-on-surface": "#9b9d9e",
+                    "tertiary-fixed": "#d6dbfb",
+                    "outline": "#737c7f",
+                    "surface-container-highest": "#dbe4e7",
+                    "secondary-dim": "#3d5762",
+                    "primary-container": "#d2e4fb",
+                    "primary-fixed": "#d2e4fb",
+                    "on-primary-container": "#425366",
+                    "on-primary-fixed": "#304153",
+                    "tertiary": "#585e78",
+                    "primary-fixed-dim": "#c4d6ed",
+                    "inverse-primary": "#d5e7fe",
+                    "surface-tint": "#4f6073",
+                    "surface-container-low": "#f1f4f6",
+                    "primary": "#4f6073",
+                    "on-primary-fixed-variant": "#4c5d70",
+                    "on-surface-variant": "#586064",
+                    "surface": "#f8f9fa",
+                    "on-error-container": "#752121",
+                    "surface-variant": "#dbe4e7",
+                    "on-tertiary-fixed": "#353b53",
+                    "on-secondary-container": "#3c5561",
+                    "error-container": "#fe8983",
+                    "secondary-fixed": "#cbe7f5",
+                    "inverse-surface": "#0c0f10",
+                    "error-dim": "#4e0309",
+                    "background": "#f8f9fa",
+                    "surface-container": "#eaeff1",
+                    "tertiary-fixed-dim": "#c8cdec",
+                    "secondary": "#49636f",
+                    "on-tertiary-fixed-variant": "#515771",
+                    "on-secondary-fixed-variant": "#455f6b",
+                    "on-tertiary": "#faf8ff",
+                    "secondary-container": "#cbe7f5",
+                    "outline-variant": "#abb3b7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col items-center">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_back_ios">arrow_back_ios</span>
+<h1 class="font-headline font-bold text-lg tracking-tight text-slate-800">Add New Asset</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="Close up portrait of a professional man in high-end office lighting with a soft bokeh background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjUXjiv5pwHdFPaV6JCjfk2_UNbeDpdbVQbMMQcBSqHhYavCcAuapt5NoNP_nyIyQFImdT7D87MO4SEEbqWaboscg12hKEFLq8DcquvRK9LfJfFlHPKRRCXfjNsbXLxKr417G5DvPXqd2GLS2kZtTnbDeM9VIA9TT9XzyokItHHfh_UVmVaQFodYIdvuaXMEZxg_zIGHR_WPpnzmqk6Z3aoM0ABCsSimdcqZzXYuvZSCfhE98hW7DxHkvEGWUn30uL-AnOB_tsKUuG"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="w-full max-w-md mt-20 mb-32 px-6 space-y-8">
+<!-- Hero Section/Visual Anchor -->
+<div class="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-sm group">
+<img alt="Asset Background" class="w-full h-full object-cover grayscale opacity-80" data-alt="Minimalist top-down view of high-end financial documents and a luxury pen on a clean white stone surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE3v7CZ7Mc-bcU4rGLhsOEPPFfyOGNLflS7u_JepC2HvEble935yVzsWWqGS_kzz5rIcNkjQeLXX4cUnosiFgo9yiz7iI02lvFGTceeuacZ4ABpJXFmTpUNM2S8g76KJjTstriFh414K2B8OBLG8HuIwOFdMNpQ3-IMjZ_OJe_piatKNUEEgM-DxJgFjzOYx0pkIDITvZuJxS2xz8FBzX8z8XKKn1vqn58Y_W7dRudfAI6sEvlPDbMcTRm5B6uiJ1oMAwcZX73ZOmy"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<span class="text-[10px] uppercase tracking-widest text-on-primary/80 font-bold">New Security Entry</span>
+<p class="text-white font-headline text-xl font-extrabold tracking-tighter">Vault Encryption Active</p>
+</div>
+</div>
+<form class="space-y-10">
+<!-- Basic Information Section -->
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-1.5 h-6 bg-primary rounded-full"></span>
+<h2 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface-variant">Basic Information</h2>
+</div>
+<div class="space-y-4">
+<div class="relative group">
+<label class="block text-[11px] font-semibold text-outline mb-1.5 ml-1">Asset Name</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl px-4 py-3.5 text-sm ring-1 ring-black/5 focus:ring-primary transition-all placeholder:text-outline-variant" placeholder="e.g. Primary Savings Account" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="relative">
+<label class="block text-[11px] font-semibold text-outline mb-1.5 ml-1">Category</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-lowest border-none rounded-xl px-4 py-3.5 text-sm ring-1 ring-black/5 focus:ring-primary transition-all">
+<option>Financial</option>
+<option>Real Estate</option>
+<option>Digital/Crypto</option>
+<option>Physical Art</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-sm" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div class="relative">
+<label class="block text-[11px] font-semibold text-outline mb-1.5 ml-1">Est. Value (USD)</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl px-4 py-3.5 text-sm ring-1 ring-black/5 focus:ring-primary transition-all" placeholder="0.00" type="text"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Detailed Metadata Section -->
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-1.5 h-6 bg-secondary rounded-full"></span>
+<h2 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface-variant">Detailed Metadata</h2>
+</div>
+<div class="glass-panel p-5 rounded-3xl border border-white/40 shadow-sm space-y-5">
+<div class="relative">
+<label class="block text-[11px] font-semibold text-outline mb-1.5 ml-1">Financial Institution</label>
+<div class="flex items-center gap-3 bg-white/50 rounded-xl px-4 py-3.5 ring-1 ring-black/5 focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-outline" data-icon="account_balance">account_balance</span>
+<input class="w-full bg-transparent border-none p-0 text-sm focus:ring-0" placeholder="Institution Name" type="text"/>
+</div>
+</div>
+<div class="relative">
+<label class="block text-[11px] font-semibold text-outline mb-1.5 ml-1">Account Number</label>
+<div class="flex items-center gap-3 bg-white/50 rounded-xl px-4 py-3.5 ring-1 ring-black/5 focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-outline" data-icon="tag">tag</span>
+<input class="w-full bg-transparent border-none p-0 text-sm focus:ring-0" placeholder="XXXX - XXXX - XXXX" type="text"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Access Instructions Section -->
+<section class="space-y-4 pb-12">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-1.5 h-6 bg-tertiary rounded-full"></span>
+<h2 class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface-variant">Access Instructions</h2>
+</div>
+<div class="relative">
+<textarea class="w-full bg-surface-container-lowest border-none rounded-2xl px-4 py-4 text-sm ring-1 ring-black/5 focus:ring-primary transition-all placeholder:text-outline-variant" placeholder="Describe where keys are kept, security phrases, or contact persons at the institution. This remains encrypted." rows="4"></textarea>
+<div class="absolute bottom-3 right-3 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[12px] text-primary" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="text-[10px] font-bold text-primary/70 uppercase tracking-tighter">Vault Level Security</span>
+</div>
+</div>
+</section>
+</form>
+</main>
+<!-- Bottom Actions (Floating) -->
+<div class="fixed bottom-0 left-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl px-6 pb-10 pt-4 flex gap-4">
+<button class="flex-1 bg-surface-container-highest text-on-surface py-4 rounded-xl font-bold text-sm hover:opacity-80 transition-all active:scale-95">
+            Cancel
+        </button>
+<button class="flex-[2] bg-primary text-on-primary py-4 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+            Commit to Vault
+        </button>
+</div>
+<!-- Hidden Bottom Nav for top-level context awareness as per guidelines -->
+<nav class="hidden fixed bottom-0 w-full z-50 rounded-t-3xl shadow-[0_-4px_24px_rgba(0,0,0,0.04)] bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl">
+<!-- Suppressed for focused task-flow -->
+</nav>
+</body></html>

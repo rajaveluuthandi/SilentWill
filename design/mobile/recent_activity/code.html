@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Security Logs - SilentWill</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#425366",
+                    "tertiary-fixed": "#d6dbfb",
+                    "on-tertiary-fixed": "#353b53",
+                    "surface-container-high": "#e3e9ec",
+                    "surface-variant": "#dbe4e7",
+                    "secondary-fixed-dim": "#bdd9e6",
+                    "surface-tint": "#4f6073",
+                    "outline": "#737c7f",
+                    "on-primary-fixed-variant": "#4c5d70",
+                    "on-error": "#fff7f6",
+                    "primary": "#4f6073",
+                    "on-secondary-fixed-variant": "#455f6b",
+                    "secondary-container": "#cbe7f5",
+                    "on-error-container": "#752121",
+                    "on-surface-variant": "#586064",
+                    "secondary-dim": "#3d5762",
+                    "on-primary": "#f5f8ff",
+                    "surface-container-highest": "#dbe4e7",
+                    "outline-variant": "#abb3b7",
+                    "on-tertiary-container": "#474d67",
+                    "inverse-surface": "#0c0f10",
+                    "background": "#f8f9fa",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f1f4f6",
+                    "inverse-on-surface": "#9b9d9e",
+                    "surface": "#f8f9fa",
+                    "inverse-primary": "#d5e7fe",
+                    "on-tertiary": "#faf8ff",
+                    "on-tertiary-fixed-variant": "#515771",
+                    "on-surface": "#2b3437",
+                    "error-container": "#fe8983",
+                    "surface-dim": "#d1dce0",
+                    "surface-container": "#eaeff1",
+                    "error": "#9f403d",
+                    "primary-dim": "#435467",
+                    "on-secondary-fixed": "#29434e",
+                    "primary-fixed-dim": "#c4d6ed",
+                    "primary-fixed": "#d2e4fb",
+                    "tertiary-container": "#d6dbfb",
+                    "on-secondary-container": "#3c5561",
+                    "on-background": "#2b3437",
+                    "error-dim": "#4e0309",
+                    "primary-container": "#d2e4fb",
+                    "surface-bright": "#f8f9fa",
+                    "tertiary-dim": "#4c526c",
+                    "secondary-fixed": "#cbe7f5",
+                    "on-secondary": "#f2faff",
+                    "secondary": "#49636f",
+                    "tertiary-fixed-dim": "#c8cdec",
+                    "on-primary-fixed": "#304153",
+                    "tertiary": "#585e78"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-surface antialiased">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-sm dark:shadow-none h-16 px-6 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="shield_lock">shield_lock</span>
+<span class="text-lg font-bold tracking-tighter text-slate-900 dark:text-slate-100 font-headline">SilentWill</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="close-up portrait of a professional man with a neutral expression against a soft gray studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZKEBQYn_1cuwV1URBKQZQkAEfMdceZqSjDpjT4MtQ3o5F7Iv4SE1LvG9tWZaCiSylGHbkbrY2ue4IB05R4tNDaycLr_Au7_LVZMaX0EhR8xtKSqvSXfjfLWx2jaZOjjAOfH-ctj4omTow_Px6-cz4uxSOL8wSOx64PEFb3Z8u8vYTytNc2_n3zCqMZoR0tZsHdOI4qXRJl8vB4uDhIahH6EsVA74s71DYVSkU6qY_34zf4LVApXtPY0Hk5_pb_wncUpjn8IM8zkvC"/>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="pt-24 pb-32 px-6 max-w-lg mx-auto">
+<!-- Section Header -->
+<header class="mb-8">
+<h1 class="font-headline text-3xl font-extrabold tracking-tight text-on-surface mb-2">Security Logs</h1>
+<p class="text-on-surface-variant text-sm font-medium">Activity and integrity record for your vault.</p>
+</header>
+<!-- Timeline Section -->
+<div class="relative">
+<!-- Vertical Line -->
+<div class="absolute left-[21px] top-4 bottom-0 w-[1px] bg-outline-variant/30"></div>
+<div class="space-y-6">
+<!-- Event 1 -->
+<div class="relative flex gap-6 items-start group">
+<div class="relative z-10 flex-shrink-0 w-11 h-11 rounded-xl bg-surface-container-lowest flex items-center justify-center shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary" data-icon="fingerprint" style="font-variation-settings: 'FILL' 0;">fingerprint</span>
+<!-- Status Dot -->
+<div class="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-background"></div>
+</div>
+<div class="flex-grow pt-1">
+<div class="glass-card p-4 rounded-xl border border-white/40 shadow-sm">
+<p class="font-headline font-semibold text-on-surface leading-tight mb-1">Identity Verified via Biometric Check</p>
+<div class="flex items-center justify-between">
+<span class="text-[12px] text-on-surface-variant font-medium">2h ago</span>
+<span class="text-[10px] uppercase tracking-wider font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">Secure</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="relative flex gap-6 items-start group">
+<div class="relative z-10 flex-shrink-0 w-11 h-11 rounded-xl bg-surface-container-lowest flex items-center justify-center shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary" data-icon="account_balance" style="font-variation-settings: 'FILL' 0;">account_balance</span>
+<div class="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full border-2 border-background"></div>
+</div>
+<div class="flex-grow pt-1">
+<div class="glass-card p-4 rounded-xl border border-white/40 shadow-sm">
+<p class="font-headline font-semibold text-on-surface leading-tight mb-1">New Asset Added: Chase Savings</p>
+<div class="flex items-center justify-between">
+<span class="text-[12px] text-on-surface-variant font-medium">1d ago</span>
+<span class="text-[10px] uppercase tracking-wider font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">Asset</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Event 3 -->
+<div class="relative flex gap-6 items-start group">
+<div class="relative z-10 flex-shrink-0 w-11 h-11 rounded-xl bg-surface-container-lowest flex items-center justify-center shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary" data-icon="person_add" style="font-variation-settings: 'FILL' 0;">person_add</span>
+<div class="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full border-2 border-background"></div>
+</div>
+<div class="flex-grow pt-1">
+<div class="glass-card p-4 rounded-xl border border-white/40 shadow-sm">
+<p class="font-headline font-semibold text-on-surface leading-tight mb-1">Nominee Added: Sarah Jenkins</p>
+<div class="flex items-center justify-between">
+<span class="text-[12px] text-on-surface-variant font-medium">3d ago</span>
+<span class="text-[10px] uppercase tracking-wider font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">Legacy</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Event 4 -->
+<div class="relative flex gap-6 items-start group">
+<div class="relative z-10 flex-shrink-0 w-11 h-11 rounded-xl bg-surface-container-lowest flex items-center justify-center shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary" data-icon="update" style="font-variation-settings: 'FILL' 0;">update</span>
+<div class="absolute -top-1 -right-1 w-3 h-3 bg-primary-container rounded-full border-2 border-background"></div>
+</div>
+<div class="flex-grow pt-1">
+<div class="glass-card p-4 rounded-xl border border-white/40 shadow-sm">
+<p class="font-headline font-semibold text-on-surface leading-tight mb-1">Verification Interval Changed to 6mo</p>
+<div class="flex items-center justify-between">
+<span class="text-[12px] text-on-surface-variant font-medium">1w ago</span>
+<span class="text-[10px] uppercase tracking-wider font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded">Settings</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Heartbeat Indicator -->
+<div class="mt-12 flex flex-col items-center justify-center text-center">
+<div class="flex items-center gap-3 bg-surface-container-low px-4 py-2 rounded-full mb-4">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tertiary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-tertiary"></span>
+</span>
+<span class="text-[12px] font-semibold text-on-tertiary-container tracking-wide uppercase">Vault Heartbeat Active</span>
+</div>
+<p class="text-[11px] text-on-surface-variant max-w-[200px] leading-relaxed">
+                Your digital legacy is continuously monitored and encrypted with post-quantum security.
+            </p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-8 pt-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl rounded-t-3xl shadow-[0_-4px_24px_rgba(0,0,0,0.04)] z-50">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 py-2 px-4 hover:text-slate-600 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">Vault</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 py-2 px-4 hover:text-slate-600 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="list_alt">list_alt</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">Assets</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 py-2 px-4 hover:text-slate-600 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="group">group</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">Nominees</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl py-2 px-4 transition-all duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-['Inter'] text-[11px] font-bold tracking-wide">Security</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-secondary-fixed": "#29434e",
+                "on-background": "#2b3437",
+                "on-tertiary-container": "#474d67",
+                "surface-container-high": "#e3e9ec",
+                "on-secondary": "#f2faff",
+                "surface-container-lowest": "#ffffff",
+                "surface-bright": "#f8f9fa",
+                "on-error": "#fff7f6",
+                "on-surface": "#2b3437",
+                "primary-dim": "#435467",
+                "error": "#9f403d",
+                "surface-dim": "#d1dce0",
+                "secondary-fixed-dim": "#bdd9e6",
+                "on-primary": "#f5f8ff",
+                "tertiary-dim": "#4c526c",
+                "tertiary-container": "#d6dbfb",
+                "inverse-on-surface": "#9b9d9e",
+                "tertiary-fixed": "#d6dbfb",
+                "outline": "#737c7f",
+                "surface-container-highest": "#dbe4e7",
+                "secondary-dim": "#3d5762",
+                "primary-container": "#d2e4fb",
+                "primary-fixed": "#d2e4fb",
+                "on-primary-container": "#425366",
+                "on-primary-fixed": "#304153",
+                "tertiary": "#585e78",
+                "primary-fixed-dim": "#c4d6ed",
+                "inverse-primary": "#d5e7fe",
+                "surface-tint": "#4f6073",
+                "surface-container-low": "#f1f4f6",
+                "primary": "#4f6073",
+                "on-primary-fixed-variant": "#4c5d70",
+                "on-surface-variant": "#586064",
+                "surface": "#f8f9fa",
+                "on-error-container": "#752121",
+                "surface-variant": "#dbe4e7",
+                "on-tertiary-fixed": "#353b53",
+                "on-secondary-container": "#3c5561",
+                "error-container": "#fe8983",
+                "secondary-fixed": "#cbe7f5",
+                "inverse-surface": "#0c0f10",
+                "error-dim": "#4e0309",
+                "background": "#f8f9fa",
+                "surface-container": "#eaeff1",
+                "tertiary-fixed-dim": "#c8cdec",
+                "secondary": "#49636f",
+                "on-tertiary-fixed-variant": "#515771",
+                "on-secondary-fixed-variant": "#455f6b",
+                "on-tertiary": "#faf8ff",
+                "secondary-container": "#cbe7f5",
+                "outline-variant": "#abb3b7"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "fontFamily": {
+                "headline": ["Manrope"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-40 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="security">security</span>
+<span class="font-['Manrope'] font-extrabold tracking-tighter text-slate-800 dark:text-slate-100 text-lg">Digital Curator</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="minimalist 3d avatar portrait of a professional man with glasses and short hair on a clean soft gray background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0vW9nk7qGPVokYOArztpK8TUIunfVn544Rfy5h10eBC9a2dcb_ICMWWb8879SFvPd9MHe5JpEVS56Rz1kB78Zf5BJa5xRISJjHZ51NXed9qtxczD5192ZK_oHcLizl6cSj6QhGYABGuUJGByKDUOg4ZjiyV9482bPufqH0aU-7UZm_e5BQv0Kt-thhAv3oaf5dzpS0mo_3Lrx2NSvnkobZ7d6__yKh4GC_HZvZ7UMZcnz9zAyMKLjqeWCnokjsccprK3B4JYHAiIT"/>
+</div>
+</div>
+</header>
+<main class="px-6 pt-6 space-y-8">
+<!-- Hero Section -->
+<section class="space-y-1">
+<p class="text-secondary font-medium tracking-wide uppercase text-[10px]">SilentWill Dashboard</p>
+<h1 class="text-4xl font-extrabold tracking-tight text-on-background">Your Legacy</h1>
+</section>
+<!-- Hidden Wealth Card -->
+<div class="relative overflow-hidden glass-card rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/40">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h2 class="text-sm font-medium text-on-surface-variant">Total Vault Value</h2>
+<div class="mt-2 flex items-center gap-3">
+<span class="text-3xl font-bold tracking-tighter filter blur-md select-none">$ 4,284,910.00</span>
+<span class="material-symbols-outlined text-outline cursor-pointer" data-icon="visibility_off">visibility_off</span>
+</div>
+</div>
+<div class="bg-primary/10 p-2 rounded-xl">
+<span class="material-symbols-outlined text-primary" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-slate-200/50">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface-container-high flex items-center justify-center text-[10px] font-bold">JD</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface-container-high flex items-center justify-center text-[10px] font-bold">MK</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-primary text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-xs" data-icon="add">add</span>
+</div>
+</div>
+<p class="text-[11px] font-medium text-on-surface-variant">2 Nominees Verified</p>
+</div>
+</div>
+<!-- Asset Clusters - Bento Grid -->
+<section>
+<div class="flex justify-between items-end mb-4">
+<h3 class="text-xl font-bold tracking-tight">Asset Clusters</h3>
+<button class="text-primary text-xs font-semibold">View All</button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Banking -->
+<div class="bg-surface-container-lowest p-5 rounded-3xl space-y-4 hover:shadow-sm transition-shadow">
+<div class="w-10 h-10 rounded-2xl bg-blue-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-600" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<p class="text-xs font-medium text-on-surface-variant">Banking</p>
+<p class="text-lg font-bold tracking-tight">12 Accounts</p>
+</div>
+</div>
+<!-- Real Estate -->
+<div class="bg-surface-container-lowest p-5 rounded-3xl space-y-4 hover:shadow-sm transition-shadow">
+<div class="w-10 h-10 rounded-2xl bg-amber-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-amber-600" data-icon="domain">domain</span>
+</div>
+<div>
+<p class="text-xs font-medium text-on-surface-variant">Real Estate</p>
+<p class="text-lg font-bold tracking-tight">3 Properties</p>
+</div>
+</div>
+<!-- Policies -->
+<div class="col-span-1 bg-surface-container-lowest p-5 rounded-3xl space-y-4 hover:shadow-sm transition-shadow">
+<div class="w-10 h-10 rounded-2xl bg-emerald-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-emerald-600" data-icon="description">description</span>
+</div>
+<div>
+<p class="text-xs font-medium text-on-surface-variant">Policies</p>
+<p class="text-lg font-bold tracking-tight">8 active</p>
+</div>
+</div>
+<!-- Digital Assets -->
+<div class="col-span-1 bg-surface-container-lowest p-5 rounded-3xl space-y-4 hover:shadow-sm transition-shadow">
+<div class="w-10 h-10 rounded-2xl bg-purple-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-purple-600" data-icon="token">token</span>
+</div>
+<div>
+<p class="text-xs font-medium text-on-surface-variant">Digital</p>
+<p class="text-lg font-bold tracking-tight">Crypto &amp; IP</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Integrity Checks -->
+<section class="space-y-4">
+<h3 class="text-xl font-bold tracking-tight">Integrity Checks</h3>
+<div class="bg-primary/5 rounded-[2rem] p-6 space-y-6">
+<!-- Check 1 -->
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="w-12 h-12 rounded-full border-2 border-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="lock_open">lock_open</span>
+</div>
+<div class="absolute top-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white animate-pulse"></div>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">Quantum Encryption Status</p>
+<p class="text-xs text-on-surface-variant">Vault keys updated 12h ago</p>
+</div>
+<span class="material-symbols-outlined text-emerald-500" data-icon="verified">verified</span>
+</div>
+<!-- Check 2 -->
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full border-2 border-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="group">group</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">Nominee Verification</p>
+<p class="text-xs text-on-surface-variant">All 3 active heirs responded</p>
+</div>
+<span class="material-symbols-outlined text-emerald-500" data-icon="verified">verified</span>
+</div>
+</div>
+</section>
+<!-- Floating Quick Action (Contextual FAB) -->
+<div class="flex justify-center">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-full flex items-center gap-3 shadow-xl active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span class="font-bold tracking-tight">Add Asset to Vault</span>
+</button>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full px-6 pb-8 pt-3 flex justify-between items-center bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl z-50 rounded-t-3xl shadow-[0_-4px_24px_rgba(0,0,0,0.04)]">
+<!-- Vault (Active) -->
+<div class="flex flex-col items-center justify-center text-slate-900 dark:text-white bg-white/50 dark:bg-slate-800/50 rounded-xl px-4 py-1.5 hover:opacity-80 transition-opacity active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-[24px]" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-tight">Vault</span>
+</div>
+<!-- Assets -->
+<div class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-[24px]" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-tight">Assets</span>
+</div>
+<!-- Nominees -->
+<div class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-[24px]" data-icon="group">group</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-tight">Nominees</span>
+</div>
+<!-- Verify -->
+<div class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-[24px]" data-icon="verified_user">verified_user</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-tight">Verify</span>
+</div>
+</nav>
+</body></html>

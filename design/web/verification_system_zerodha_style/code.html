@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SilentWill | Verification System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed-variant": "#455f6b",
+                        "on-tertiary-fixed": "#353b53",
+                        "on-tertiary-fixed-variant": "#515771",
+                        "on-error": "#fff7f6",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#49636f",
+                        "tertiary-fixed": "#d6dbfb",
+                        "tertiary": "#585e78",
+                        "primary-fixed": "#d2e4fb",
+                        "inverse-surface": "#0c0f10",
+                        "surface-dim": "#d1dce0",
+                        "secondary-dim": "#3d5762",
+                        "primary-dim": "#435467",
+                        "surface-variant": "#dbe4e7",
+                        "secondary-fixed": "#cbe7f5",
+                        "surface": "#f8f9fa",
+                        "error-container": "#fe8983",
+                        "on-surface": "#2b3437",
+                        "on-secondary": "#f2faff",
+                        "surface-container-high": "#e3e9ec",
+                        "inverse-primary": "#d5e7fe",
+                        "primary": "#4f6073",
+                        "surface-container-highest": "#dbe4e7",
+                        "on-primary-fixed": "#304153",
+                        "background": "#f8f9fa",
+                        "surface-bright": "#f8f9fa",
+                        "outline": "#737c7f",
+                        "tertiary-container": "#d6dbfb",
+                        "tertiary-fixed-dim": "#c8cdec",
+                        "primary-fixed-dim": "#c4d6ed",
+                        "on-secondary-container": "#3c5561",
+                        "inverse-on-surface": "#9b9d9e",
+                        "on-primary-container": "#425366",
+                        "on-primary-fixed-variant": "#4c5d70",
+                        "primary-container": "#d2e4fb",
+                        "outline-variant": "#abb3b7",
+                        "secondary-fixed-dim": "#bdd9e6",
+                        "on-secondary-fixed": "#29434e",
+                        "secondary-container": "#cbe7f5",
+                        "on-tertiary": "#faf8ff",
+                        "on-surface-variant": "#586064",
+                        "on-tertiary-container": "#474d67",
+                        "error": "#9f403d",
+                        "error-dim": "#4e0309",
+                        "on-background": "#2b3437",
+                        "surface-container": "#eaeff1",
+                        "surface-container-low": "#f1f4f6",
+                        "on-primary": "#f5f8ff",
+                        "surface-tint": "#4f6073",
+                        "tertiary-dim": "#4c526c",
+                        "on-error-container": "#752121"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            letter-spacing: -0.011em;
+        }
+        h1, h2, h3, h4 {
+            letter-spacing: -0.022em;
+        }
+        .tight-tracking {
+            letter-spacing: -0.02em;
+        }
+    </style>
+</head>
+<body class="text-on-surface antialiased">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col bg-slate-50 dark:bg-slate-900 border-none z-50">
+<div class="flex flex-col h-full py-8 px-4">
+<div class="mb-10 px-2 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h1 class="text-xl font-bold text-slate-800 dark:text-slate-100 font-headline tracking-tight">SilentWill</h1>
+<p class="text-[10px] uppercase tracking-[0.15em] text-slate-500 font-bold">Digital Curator</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 text-sm font-medium tracking-tight hover:bg-white/40 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 text-sm font-medium tracking-tight hover:bg-white/40 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="account_balance_wallet">account_balance_wallet</span>
+                Asset Management
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 text-sm font-medium tracking-tight hover:bg-white/40 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="privacy_tip">privacy_tip</span>
+                Sharing &amp; Privacy
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-900 dark:text-white font-semibold border-r-2 border-slate-600 dark:border-slate-400 bg-white/50 dark:bg-slate-800/80 text-sm tracking-tight" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                Verification
+            </a>
+</nav>
+<div class="mt-auto pt-6 border-t border-slate-200 dark:border-slate-800 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:bg-white/40 transition-colors text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:bg-white/40 transition-colors text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="help_outline">help_outline</span>
+                Support
+            </a>
+<button class="w-full mt-4 bg-primary text-on-primary py-2.5 px-4 rounded-xl font-semibold text-sm shadow-sm hover:opacity-90 transition-all tracking-tight">
+                Secure New Asset
+            </button>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md flex justify-between items-center px-8 border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center bg-surface-container-low px-4 py-1.5 rounded-full w-96">
+<span class="material-symbols-outlined text-slate-400 text-sm">search</span>
+<input class="bg-transparent border-none text-sm focus:ring-0 w-full placeholder:text-slate-400 tracking-tight" placeholder="Search your vault..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-slate-500 cursor-pointer hover:text-primary transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-slate-500 cursor-pointer hover:text-primary transition-colors" data-icon="help_center">help_center</span>
+</div>
+<div class="h-8 w-8 rounded-full overflow-hidden bg-slate-200">
+<img alt="User profile" data-alt="Close up portrait of a professional male user" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO_uXqczirTns1MdHOF1N61ekZkblxWyQcI3bT7627PtOsdWXFRjai5_wfd2SzjnGWP94sIx_ZJq2QcrmFEJLoKllrlB3wKpFtwKGwoFsksIZMtg8r8VpS0kh7XdlPP-fOTWy3ZXhbOZz61_3PSKqlJf7HQGofYQcoVr16zsPZOsBtf4kU2yj115qUQZwulUshV7TSsv2G08LKwAw-feS0XByI1PsWUNBUP_h8OZvleCtzDo8Pn-0ce6Qxekt-6knSZW4UbmTaLvW8"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 pb-12 px-12 min-h-screen">
+<div class="max-w-5xl mx-auto">
+<!-- Header Section -->
+<div class="mb-12">
+<h2 class="text-[32px] font-bold text-on-surface tracking-tight mb-2">Verification Setup &amp; Status</h2>
+<p class="text-on-surface-variant text-base font-normal max-w-2xl leading-relaxed tracking-tight">
+                Confirm your status regularly to ensure your assets are shared as planned. This process acts as a "dead man's switch" to trigger your digital inheritance protocols.
+            </p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Status & Progress Card -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-xl p-8 flex flex-col justify-between min-h-[320px] shadow-sm">
+<div class="flex justify-between items-start mb-8">
+<div>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold tracking-tight uppercase mb-4">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            Active
+                        </span>
+<h3 class="text-[28px] font-bold text-on-surface tracking-tight">Verification Status: Confirmed</h3>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.08em] mb-1">Last Checked</p>
+<p class="text-base font-semibold text-on-surface tracking-tight">Oct 12, 2023</p>
+</div>
+</div>
+<div class="space-y-6">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-sm font-medium text-on-surface-variant mb-1 tracking-tight">Next Verification Due</p>
+<p class="text-[20px] font-bold text-primary tracking-tight">January 12, 2024</p>
+</div>
+<div class="text-right flex items-baseline gap-1">
+<span class="text-[44px] font-extrabold text-on-surface leading-none tracking-tighter">91</span>
+<span class="text-sm font-semibold text-on-surface-variant tracking-tight mb-1">days remaining</span>
+</div>
+</div>
+<div class="w-full h-2.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[72%] rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Verify CTA Card -->
+<div class="col-span-12 lg:col-span-4 bg-primary rounded-xl p-8 flex flex-col justify-center items-center text-center text-on-primary shadow-lg">
+<div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-3xl" data-icon="fingerprint">fingerprint</span>
+</div>
+<h3 class="text-[20px] font-bold mb-2 tracking-tight">Instant Check-in</h3>
+<p class="text-sm text-on-primary/80 mb-8 leading-relaxed tracking-tight">
+                    Manually reset the countdown timer by verifying your identity now.
+                </p>
+<button class="w-full bg-white text-primary py-3.5 px-6 rounded-xl font-bold text-sm shadow-md hover:bg-slate-50 transition-all active:scale-[0.98] tracking-tight">
+                    Verify Now
+                </button>
+</div>
+<!-- Interval Selection Section -->
+<div class="col-span-12 bg-surface-container-low rounded-xl p-8">
+<div class="flex items-center gap-2 mb-8">
+<span class="material-symbols-outlined text-secondary text-xl" data-icon="schedule">schedule</span>
+<h3 class="text-lg font-bold text-on-surface tracking-tight">Verification Interval</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Radio Card 1 -->
+<label class="relative cursor-pointer group">
+<input class="peer sr-only" name="interval" type="radio" value="3m"/>
+<div class="p-6 bg-surface-container-lowest border border-slate-200 rounded-xl transition-all peer-checked:border-primary peer-checked:ring-1 peer-checked:ring-primary shadow-sm hover:shadow-md">
+<div class="flex justify-between items-center mb-4">
+<span class="text-base font-bold text-on-surface tracking-tight">3 Months</span>
+<div class="w-5 h-5 rounded-full border border-slate-300 peer-checked:border-primary flex items-center justify-center transition-colors">
+<div class="w-2.5 h-2.5 bg-primary rounded-full opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant font-medium leading-normal tracking-tight">High-frequency safety check for active digital estates.</p>
+</div>
+</label>
+<!-- Radio Card 2 (Active) -->
+<label class="relative cursor-pointer group">
+<input checked="" class="peer sr-only" name="interval" type="radio" value="6m"/>
+<div class="p-6 bg-surface-container-lowest border border-primary ring-1 ring-primary rounded-xl transition-all shadow-sm hover:shadow-md">
+<div class="flex justify-between items-center mb-4">
+<span class="text-base font-bold text-primary tracking-tight">6 Months</span>
+<div class="w-5 h-5 rounded-full border border-primary flex items-center justify-center">
+<div class="w-2.5 h-2.5 bg-primary rounded-full opacity-100"></div>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant font-medium leading-normal tracking-tight">Balanced security interval. Our most recommended setting.</p>
+</div>
+</label>
+<!-- Radio Card 3 -->
+<label class="relative cursor-pointer group">
+<input class="peer sr-only" name="interval" type="radio" value="1y"/>
+<div class="p-6 bg-surface-container-lowest border border-slate-200 rounded-xl transition-all peer-checked:border-primary peer-checked:ring-1 peer-checked:ring-primary shadow-sm hover:shadow-md">
+<div class="flex justify-between items-center mb-4">
+<span class="text-base font-bold text-on-surface tracking-tight">1 Year</span>
+<div class="w-5 h-5 rounded-full border border-slate-300 peer-checked:border-primary flex items-center justify-center transition-colors">
+<div class="w-2.5 h-2.5 bg-primary rounded-full opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant font-medium leading-normal tracking-tight">Long-term preservation. Requires secondary contact verification.</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Info Section -->
+<div class="col-span-12 mt-4">
+<div class="bg-white/50 border border-slate-100 rounded-xl p-8">
+<div class="flex items-start gap-6">
+<div class="bg-secondary-container/40 p-3.5 rounded-xl text-on-secondary-container">
+<span class="material-symbols-outlined text-2xl" data-icon="info" style="font-variation-settings: 'FILL' 1;">info</span>
+</div>
+<div class="flex-1">
+<h4 class="text-lg font-bold text-on-surface mb-3 tracking-tight">How it works</h4>
+<div class="grid md:grid-cols-2 gap-8 text-[14px] text-on-surface-variant leading-relaxed font-medium tracking-tight">
+<p>The verification system ensures your assets are only shared when absolutely necessary. If you fail to check in within your chosen interval, we initiate a multi-step "Heartbeat Check" via email, SMS, and your designated backup contacts.</p>
+<p>If all verification attempts fail after a 30-day grace period, your "Silent Will" protocols will automatically activate, granting your beneficiaries access to your encrypted digital vaults and assets as you have defined them.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

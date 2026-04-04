@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SilentWill | Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed-variant": "#455f6b",
+                        "on-tertiary-fixed": "#353b53",
+                        "on-tertiary-fixed-variant": "#515771",
+                        "on-error": "#fff7f6",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#49636f",
+                        "tertiary-fixed": "#d6dbfb",
+                        "tertiary": "#585e78",
+                        "primary-fixed": "#d2e4fb",
+                        "inverse-surface": "#0c0f10",
+                        "surface-dim": "#d1dce0",
+                        "secondary-dim": "#3d5762",
+                        "primary-dim": "#435467",
+                        "surface-variant": "#dbe4e7",
+                        "secondary-fixed": "#cbe7f5",
+                        "surface": "#f8f9fa",
+                        "error-container": "#fe8983",
+                        "on-surface": "#2b3437",
+                        "on-secondary": "#f2faff",
+                        "surface-container-high": "#e3e9ec",
+                        "inverse-primary": "#d5e7fe",
+                        "primary": "#4f6073",
+                        "surface-container-highest": "#dbe4e7",
+                        "on-primary-fixed": "#304153",
+                        "background": "#f8f9fa",
+                        "surface-bright": "#f8f9fa",
+                        "outline": "#737c7f",
+                        "tertiary-container": "#d6dbfb",
+                        "tertiary-fixed-dim": "#c8cdec",
+                        "primary-fixed-dim": "#c4d6ed",
+                        "on-secondary-container": "#3c5561",
+                        "inverse-on-surface": "#9b9d9e",
+                        "on-primary-container": "#425366",
+                        "on-primary-fixed-variant": "#4c5d70",
+                        "primary-container": "#d2e4fb",
+                        "outline-variant": "#abb3b7",
+                        "secondary-fixed-dim": "#bdd9e6",
+                        "on-secondary-fixed": "#29434e",
+                        "secondary-container": "#cbe7f5",
+                        "on-tertiary": "#faf8ff",
+                        "on-surface-variant": "#586064",
+                        "on-tertiary-container": "#474d67",
+                        "error": "#9f403d",
+                        "error-dim": "#4e0309",
+                        "on-background": "#2b3437",
+                        "surface-container": "#eaeff1",
+                        "surface-container-low": "#f1f4f6",
+                        "on-primary": "#f5f8ff",
+                        "surface-tint": "#4f6073",
+                        "tertiary-dim": "#4c526c",
+                        "on-error-container": "#752121"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            letter-spacing: -0.011em;
+        }
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+        h1, h2, h3, h4, .font-headline {
+            letter-spacing: -0.022em;
+        }
+    </style>
+</head>
+<body class="text-on-background">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col bg-slate-50 dark:bg-slate-900 font-medium text-sm tracking-tight z-50">
+<div class="flex flex-col h-full py-8 px-4">
+<!-- Header Section -->
+<div class="mb-10 px-2 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+<div>
+<h1 class="text-xl font-extrabold text-slate-800 dark:text-slate-100 leading-none">SilentWill</h1>
+<p class="text-[10px] uppercase tracking-widest font-semibold text-on-surface-variant mt-1">Digital Curator</p>
+</div>
+</div>
+<!-- Main Navigation -->
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-900 dark:text-white font-semibold border-r-2 border-slate-600 dark:border-slate-400 bg-white/50 dark:bg-slate-800/80 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-white/40 dark:hover:bg-slate-800/40 transition-colors scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span>Asset Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-white/40 dark:hover:bg-slate-800/40 transition-colors scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="privacy_tip">privacy_tip</span>
+<span>Sharing &amp; Privacy</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-white/40 dark:hover:bg-slate-800/40 transition-colors scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="verified_user">verified_user</span>
+<span>Verification</span>
+</a>
+</nav>
+<!-- CTA -->
+<button class="mt-6 mb-8 w-full py-3 bg-primary text-on-primary rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-all shadow-sm">
+<span class="material-symbols-outlined text-sm">add</span>
+            Secure New Asset
+        </button>
+<!-- Footer Tabs -->
+<div class="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-white/40 dark:hover:bg-slate-800/40 transition-colors text-xs font-semibold" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-white/40 dark:hover:bg-slate-800/40 transition-colors text-xs font-semibold" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="help_outline">help_outline</span>
+<span>Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Component -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800">
+<div class="flex justify-between items-center px-8 w-full h-full">
+<!-- Search Bar -->
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm font-medium focus:ring-2 focus:ring-primary/20 placeholder:text-slate-400" placeholder="Search your vault..." type="text"/>
+</div>
+<!-- Actions & Profile -->
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-slate-600 dark:text-slate-300">
+<button class="opacity-80 hover:opacity-100 transition-all relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<button class="opacity-80 hover:opacity-100 transition-all">
+<span class="material-symbols-outlined" data-icon="help_center">help_center</span>
+</button>
+</div>
+<div class="h-8 w-px bg-slate-200"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface">Alex Mercer</p>
+<p class="text-[10px] font-medium text-on-surface-variant">Premium Member</p>
+</div>
+<img alt="User profile" class="w-9 h-9 rounded-full object-cover ring-2 ring-primary-container" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLZGtBOZykx8lcz_C3hls7XboVAl5Dbq0-Le9iKRbw3zF01PDVdeaKwLGbkWAvUuVOQBg2v8as3enTltWV4YV4K1n6W501k_PpGSBH4SX4LRiveOE5HvHM7lvjIpTpw7NcYA-QaQCIl4jXJVQuzCDlRYZA4iBU_522ywG8iNQUDufXSdxTskQfOAI4MRszplwzBxs1aqWLE7-G6HKABaIHj9yR4jhBAgmoUUrnljMnraZ-fiAfs6x0w0ED5WWHfKB76squNuSfHCZj"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 px-8 pb-12">
+<!-- Hero Section: Editorial Asymmetry -->
+<section class="editorial-grid mb-12">
+<div class="col-span-12 lg:col-span-7 bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/10 relative overflow-hidden">
+<div class="relative z-10">
+<h2 class="text-on-surface-variant text-[11px] font-bold tracking-widest uppercase mb-2">Total Managed Asset Value</h2>
+<div class="flex items-baseline gap-4 mb-8">
+<span class="text-4xl font-extrabold text-on-surface tracking-tighter">$2,482,190.00</span>
+<span class="text-emerald-600 text-[13px] font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs font-bold">trending_up</span> +12.4%
+                    </span>
+</div>
+<!-- Simplified Visual Representation of a chart -->
+<div class="w-full h-32 flex items-end gap-1.5">
+<div class="flex-1 bg-primary-container/40 rounded-t-sm h-[40%]"></div>
+<div class="flex-1 bg-primary-container/40 rounded-t-sm h-[55%]"></div>
+<div class="flex-1 bg-primary-container/40 rounded-t-sm h-[45%]"></div>
+<div class="flex-1 bg-primary-container/40 rounded-t-sm h-[70%]"></div>
+<div class="flex-1 bg-primary-container/40 rounded-t-sm h-[65%]"></div>
+<div class="flex-1 bg-primary-container/40 rounded-t-sm h-[85%]"></div>
+<div class="flex-1 bg-primary-container/60 rounded-t-sm h-[75%]"></div>
+<div class="flex-1 bg-primary-container/60 rounded-t-sm h-[95%]"></div>
+<div class="flex-1 bg-primary h-[100%] rounded-t-sm"></div>
+</div>
+</div>
+<!-- Subtle Decorative Gradient -->
+<div class="absolute -right-10 -bottom-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+</div>
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-4">
+<div class="flex-1 bg-primary p-6 rounded-xl text-on-primary flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-3xl opacity-80" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-[10px] font-bold tracking-widest uppercase py-1.5 px-3 bg-white/20 rounded-md">Heartbeat Active</span>
+</div>
+<h3 class="mt-4 text-xl font-extrabold tracking-tight">Inheritance Health</h3>
+<p class="text-on-primary/80 text-sm mt-2 leading-relaxed font-medium">Last verification: 4 hours ago. Nominees are assigned at the vault level, ensuring comprehensive access to your digital legacy.</p>
+</div>
+<button class="w-full mt-4 py-3 bg-white text-primary rounded-lg text-sm font-bold hover:bg-surface-container-low transition-colors shadow-sm">Manage Nominees</button>
+</div>
+</div>
+</section>
+<!-- Bento Grid for Categories -->
+<section class="mb-12">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="text-2xl font-extrabold text-on-surface tracking-tighter">Asset Portfolio</h2>
+<p class="text-on-surface-variant text-sm mt-1 font-medium">All assets are hidden by default for maximum security.</p>
+</div>
+<button class="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
+                View Detailed Report <span class="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1: Bank Accounts -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/10 hover:shadow-md transition-shadow">
+<div class="flex justify-between mb-4">
+<div class="w-10 h-10 bg-secondary-container rounded-lg flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+</div>
+<h4 class="text-on-surface-variant font-bold text-xs uppercase tracking-wider mb-1">Bank Accounts</h4>
+<p class="text-on-surface text-2xl font-extrabold tracking-tighter">$450,000</p>
+<p class="text-on-surface-variant text-[11px] mt-2 font-medium italic opacity-70">3 Accounts linked</p>
+</div>
+<!-- Card 2: Insurance -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/10 hover:shadow-md transition-shadow">
+<div class="flex justify-between mb-4">
+<div class="w-10 h-10 bg-secondary-container rounded-lg flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">health_and_safety</span>
+</div>
+</div>
+<h4 class="text-on-surface-variant font-bold text-xs uppercase tracking-wider mb-1">Insurance</h4>
+<p class="text-on-surface text-2xl font-extrabold tracking-tighter">$1,200,000</p>
+<p class="text-on-surface-variant text-[11px] mt-2 font-medium italic opacity-70">Life &amp; Health policies</p>
+</div>
+<!-- Card 3: PF -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/10 hover:shadow-md transition-shadow">
+<div class="flex justify-between mb-4">
+<div class="w-10 h-10 bg-secondary-container rounded-lg flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">savings</span>
+</div>
+</div>
+<h4 class="text-on-surface-variant font-bold text-xs uppercase tracking-wider mb-1">Provident Fund</h4>
+<p class="text-on-surface text-2xl font-extrabold tracking-tighter">$182,190</p>
+<p class="text-on-surface-variant text-[11px] mt-2 font-medium italic opacity-70">Corporate PF</p>
+</div>
+<!-- Card 4: Stocks -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/10 hover:shadow-md transition-shadow">
+<div class="flex justify-between mb-4">
+<div class="w-10 h-10 bg-secondary-container rounded-lg flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">query_stats</span>
+</div>
+</div>
+<h4 class="text-on-surface-variant font-bold text-xs uppercase tracking-wider mb-1">Stocks &amp; MF</h4>
+<p class="text-on-surface text-2xl font-extrabold tracking-tighter">$650,000</p>
+<p class="text-on-surface-variant text-[11px] mt-2 font-medium italic opacity-70">2 Brokerage accounts</p>
+</div>
+<!-- Card 5: Gold -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/10 hover:shadow-md transition-shadow">
+<div class="flex justify-between mb-4">
+<div class="w-10 h-10 bg-secondary-container rounded-lg flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">workspace_premium</span>
+</div>
+</div>
+<h4 class="text-on-surface-variant font-bold text-xs uppercase tracking-wider mb-1">Gold &amp; Precious</h4>
+<p class="text-on-surface text-2xl font-extrabold tracking-tighter">$120,000</p>
+<p class="text-on-surface-variant text-[11px] mt-2 font-medium italic opacity-70">Vault and Digital Gold</p>
+</div>
+<!-- Card 6: Land -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/10 hover:shadow-md transition-shadow">
+<div class="flex justify-between mb-4">
+<div class="w-10 h-10 bg-secondary-container rounded-lg flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">foundation</span>
+</div>
+</div>
+<h4 class="text-on-surface-variant font-bold text-xs uppercase tracking-wider mb-1">Real Estate</h4>
+<p class="text-on-surface text-2xl font-extrabold tracking-tighter">$2,100,000</p>
+<p class="text-on-surface-variant text-[11px] mt-2 font-medium italic opacity-70">Residential property</p>
+</div>
+<!-- Card 7: Liabilities -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/10 hover:shadow-md transition-shadow">
+<div class="flex justify-between mb-4">
+<div class="w-10 h-10 bg-error-container/20 rounded-lg flex items-center justify-center text-error">
+<span class="material-symbols-outlined">credit_card_off</span>
+</div>
+</div>
+<h4 class="text-on-surface-variant font-bold text-xs uppercase tracking-wider mb-1">Liabilities</h4>
+<p class="text-error text-2xl font-extrabold tracking-tighter">-$220,000</p>
+<p class="text-on-surface-variant text-[11px] mt-2 font-medium italic opacity-70">Outstanding Loans</p>
+</div>
+<!-- Add New -->
+<div class="bg-surface-container-low p-5 rounded-xl border border-dashed border-outline-variant flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high cursor-pointer transition-colors group">
+<span class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform">add_circle</span>
+<p class="text-xs font-bold mt-2 uppercase tracking-wider">New Category</p>
+</div>
+</div>
+</section>
+<!-- Bottom Layout: Activities and Settings -->
+<section class="editorial-grid">
+<div class="col-span-12 lg:col-span-8">
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-outline-variant/10 shadow-sm">
+<h3 class="text-lg font-bold text-on-surface mb-8 flex items-center gap-2 tracking-tight">
+<span class="material-symbols-outlined text-primary font-bold">history</span> Recent Activity
+                </h3>
+<div class="space-y-8">
+<!-- Activity Item 1 -->
+<div class="flex gap-4">
+<div class="w-2.5 mt-1.5 h-2.5 rounded-full bg-primary shrink-0"></div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="text-[14px] font-bold text-on-surface">Verified Identity via Biometric Check</p>
+<span class="text-[11px] font-bold text-on-surface-variant uppercase tracking-tight">2 Hours ago</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1.5 font-medium leading-relaxed">Status: Success. Heartbeat signal updated for the next 48 hours.</p>
+</div>
+</div>
+<!-- Activity Item 2 -->
+<div class="flex gap-4">
+<div class="w-2.5 mt-1.5 h-2.5 rounded-full bg-outline-variant shrink-0"></div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="text-[14px] font-bold text-on-surface">Updated Vault-Level Nominee Access</p>
+<span class="text-[11px] font-bold text-on-surface-variant uppercase tracking-tight">Yesterday</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1.5 font-medium leading-relaxed">Sarah Mercer added as Secondary Nominee for the entire vault.</p>
+</div>
+</div>
+<!-- Activity Item 3 -->
+<div class="flex gap-4">
+<div class="w-2.5 mt-1.5 h-2.5 rounded-full bg-outline-variant shrink-0"></div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="text-[14px] font-bold text-on-surface">Asset Value Sync: Stocks &amp; MF</p>
+<span class="text-[11px] font-bold text-on-surface-variant uppercase tracking-tight">3 Days ago</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1.5 font-medium leading-relaxed">Market values refreshed across 12 linked holdings.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-4">
+<div class="bg-surface-container-low rounded-xl p-6 h-full flex flex-col justify-between">
+<div>
+<h3 class="text-lg font-bold text-on-surface mb-6 tracking-tight">Security Overview</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Vault Encryption</span>
+<span class="text-[11px] font-black text-emerald-600 tracking-widest uppercase bg-emerald-50 px-2 py-0.5 rounded">AES-256</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Nominee Protocol</span>
+<span class="text-[11px] font-black text-on-surface-variant tracking-widest uppercase bg-slate-100 px-2 py-0.5 rounded">Vault-Wide</span>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<p class="text-[11px] text-on-surface-variant text-center mb-6 italic leading-relaxed font-medium">SilentWill uses bank-grade security and full hidden mode to ensure your data is only ever seen by you and your intended heirs.</p>
+<button class="w-full py-3.5 border-2 border-primary text-primary text-sm font-extrabold rounded-lg hover:bg-primary hover:text-white transition-all duration-200">Download Vault Key</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

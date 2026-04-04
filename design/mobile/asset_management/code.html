@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#29434e",
+                    "on-background": "#2b3437",
+                    "on-tertiary-container": "#474d67",
+                    "surface-container-high": "#e3e9ec",
+                    "on-secondary": "#f2faff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f8f9fa",
+                    "on-error": "#fff7f6",
+                    "on-surface": "#2b3437",
+                    "primary-dim": "#435467",
+                    "error": "#9f403d",
+                    "surface-dim": "#d1dce0",
+                    "secondary-fixed-dim": "#bdd9e6",
+                    "on-primary": "#f5f8ff",
+                    "tertiary-dim": "#4c526c",
+                    "tertiary-container": "#d6dbfb",
+                    "inverse-on-surface": "#9b9d9e",
+                    "tertiary-fixed": "#d6dbfb",
+                    "outline": "#737c7f",
+                    "surface-container-highest": "#dbe4e7",
+                    "secondary-dim": "#3d5762",
+                    "primary-container": "#d2e4fb",
+                    "primary-fixed": "#d2e4fb",
+                    "on-primary-container": "#425366",
+                    "on-primary-fixed": "#304153",
+                    "tertiary": "#585e78",
+                    "primary-fixed-dim": "#c4d6ed",
+                    "inverse-primary": "#d5e7fe",
+                    "surface-tint": "#4f6073",
+                    "surface-container-low": "#f1f4f6",
+                    "primary": "#4f6073",
+                    "on-primary-fixed-variant": "#4c5d70",
+                    "on-surface-variant": "#586064",
+                    "surface": "#f8f9fa",
+                    "on-error-container": "#752121",
+                    "surface-variant": "#dbe4e7",
+                    "on-tertiary-fixed": "#353b53",
+                    "on-secondary-container": "#3c5561",
+                    "error-container": "#fe8983",
+                    "secondary-fixed": "#cbe7f5",
+                    "inverse-surface": "#0c0f10",
+                    "error-dim": "#4e0309",
+                    "background": "#f8f9fa",
+                    "surface-container": "#eaeff1",
+                    "tertiary-fixed-dim": "#c8cdec",
+                    "secondary": "#49636f",
+                    "on-tertiary-fixed-variant": "#515771",
+                    "on-secondary-fixed-variant": "#455f6b",
+                    "on-tertiary": "#faf8ff",
+                    "secondary-container": "#cbe7f5",
+                    "outline-variant": "#abb3b7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .ios-blur {
+            filter: blur(8px);
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 left-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="security">security</span>
+<h1 class="text-slate-800 dark:text-slate-100 font-['Manrope'] font-extrabold tracking-tighter text-lg">Digital Curator</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/10">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close up portrait of a professional man in a clean studio setting with soft natural lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBdmGtHE-RPzcPAyuexa--GKE6peEcWJSi6FxldZe3E2suMFU7C3N7VObaxooLXzL7ya346XtDrGIh2Mt8tofmL69gmJOMgxjg16KVxWmjqoMtatxFmLtikUdBABXmHI8KjBgds_0iuZ_CsSCMr01lDYlVqxlGn2WzGkRPaqKYU9tfQ8HI2d5ug9wAm4pfCAP4K9FFzUPLPB4VQBRHf2EuWA8188I7RuwHX1W18WP52UjNvF0K1zWZIxH5tk-ubwfejzcZVBmWvZv4"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6">
+<!-- Legacy Summary Card -->
+<section class="mb-8">
+<div class="relative overflow-hidden bg-primary p-6 rounded-2xl shadow-xl shadow-primary/10">
+<div class="absolute -right-12 -top-12 w-48 h-48 bg-white/5 rounded-full blur-3xl"></div>
+<div class="absolute -left-6 -bottom-6 w-32 h-32 bg-secondary-container/10 rounded-full blur-2xl"></div>
+<div class="relative z-10">
+<p class="text-on-primary/60 text-xs font-medium tracking-widest uppercase mb-1">Total Legacy Value</p>
+<div class="flex items-end gap-2">
+<h2 class="font-headline text-4xl font-extrabold text-on-primary tracking-tight">$8,245,000</h2>
+<div class="mb-1.5 flex items-center gap-1 text-[10px] bg-white/10 px-2 py-0.5 rounded-full text-on-primary">
+<span class="material-symbols-outlined text-[12px]" data-icon="trending_up">trending_up</span>
+<span>2.4%</span>
+</div>
+</div>
+<div class="mt-6 flex justify-between items-center">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-primary bg-slate-200"></div>
+<div class="w-6 h-6 rounded-full border-2 border-primary bg-slate-300"></div>
+<div class="w-6 h-6 rounded-full border-2 border-primary bg-slate-400"></div>
+</div>
+<span class="text-on-primary/70 text-[11px] font-medium">3 Nominees Verified</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Search and Filter Section -->
+<section class="mb-8 space-y-4">
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline text-[20px]" data-icon="search">search</span>
+</div>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl py-3.5 pl-12 pr-4 text-sm font-medium focus:ring-2 focus:ring-primary/20 placeholder:text-outline-variant transition-all" placeholder="Search legacy assets..." type="text"/>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary text-xs font-semibold whitespace-nowrap shadow-sm">All</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-low text-on-surface-variant text-xs font-medium whitespace-nowrap hover:bg-surface-container-high transition-colors">Bank</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-low text-on-surface-variant text-xs font-medium whitespace-nowrap hover:bg-surface-container-high transition-colors">Real Estate</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-low text-on-surface-variant text-xs font-medium whitespace-nowrap hover:bg-surface-container-high transition-colors">Digital</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-low text-on-surface-variant text-xs font-medium whitespace-nowrap hover:bg-surface-container-high transition-colors">Crypto</button>
+</div>
+</section>
+<!-- Assets Bento List -->
+<section class="space-y-4">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline font-bold text-lg text-on-surface">Primary Assets</h3>
+<button class="text-primary text-xs font-semibold flex items-center gap-1">
+                    Manage <span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Asset Card 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl flex items-center gap-4 group active:scale-[0.98] transition-all">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[24px]" data-icon="account_balance">account_balance</span>
+</div>
+<div class="flex-1">
+<h4 class="font-semibold text-sm text-on-surface">Chase Private Client</h4>
+<p class="text-[11px] text-on-surface-variant font-medium">Checking • 0024</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold ios-blur tracking-tight">$1,240,000</p>
+<p class="text-[10px] text-primary font-medium">Linked</p>
+</div>
+</div>
+<!-- Asset Card 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl flex items-center gap-4 group active:scale-[0.98] transition-all">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[24px]" data-icon="home_work">home_work</span>
+</div>
+<div class="flex-1">
+<h4 class="font-semibold text-sm text-on-surface">Manhattan Penthouse</h4>
+<p class="text-[11px] text-on-surface-variant font-medium">Real Estate • NY</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold ios-blur tracking-tight">$4,500,000</p>
+<p class="text-[10px] text-primary font-medium">Appraised</p>
+</div>
+</div>
+<!-- Asset Card 3 (Digital) -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl flex items-center gap-4 group active:scale-[0.98] transition-all">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[24px]" data-icon="currency_bitcoin">currency_bitcoin</span>
+</div>
+<div class="flex-1">
+<h4 class="font-semibold text-sm text-on-surface">Cold Storage Wallet</h4>
+<p class="text-[11px] text-on-surface-variant font-medium">Digital Asset • Ledger</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold ios-blur tracking-tight">$825,000</p>
+<p class="text-[10px] text-primary font-medium">Secured</p>
+</div>
+</div>
+<!-- Asset Card 4 (Investments) -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl flex items-center gap-4 group active:scale-[0.98] transition-all">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[24px]" data-icon="monitoring">monitoring</span>
+</div>
+<div class="flex-1">
+<h4 class="font-semibold text-sm text-on-surface">Vanguard Portfolio</h4>
+<p class="text-[11px] text-on-surface-variant font-medium">Equities • Brokerage</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold ios-blur tracking-tight">$1,680,000</p>
+<p class="text-[10px] text-primary font-medium">Synced</p>
+</div>
+</div>
+</section>
+<!-- Time Capsule Status Indicator -->
+<section class="mt-10 mb-6">
+<div class="flex items-center gap-3 bg-surface-container p-4 rounded-xl">
+<div class="relative">
+<div class="w-2.5 h-2.5 bg-tertiary rounded-full"></div>
+<div class="absolute inset-0 w-2.5 h-2.5 bg-tertiary rounded-full animate-ping opacity-75"></div>
+</div>
+<div class="flex-1">
+<h5 class="text-[11px] font-bold text-on-surface uppercase tracking-wider">Heartbeat Active</h5>
+<p class="text-[10px] text-on-surface-variant">Last check-in: Today at 08:42 AM</p>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]" data-icon="info">info</span>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 rounded-t-3xl bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-[0_-4px_24px_rgba(0,0,0,0.04)] px-6 pb-8 pt-3 flex justify-between items-center">
+<!-- Vault Tab -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="lock">lock</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-tight">Vault</span>
+</a>
+<!-- Assets Tab (Active) -->
+<a class="flex flex-col items-center justify-center text-slate-900 dark:text-white bg-white/50 dark:bg-slate-800/50 rounded-xl px-4 py-1.5 hover:opacity-80 transition-opacity active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="account_balance_wallet" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-tight">Assets</span>
+</a>
+<!-- Nominees Tab -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="group">group</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-tight">Nominees</span>
+</a>
+<!-- Verify Tab -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="verified_user">verified_user</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-tight">Verify</span>
+</a>
+</nav>
+<!-- Floating Action Button - Only for Assets screen to add new asset -->
+<div class="fixed bottom-28 right-6 z-40">
+<button class="w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg shadow-primary/30 flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[32px]" data-icon="add">add</span>
+</button>
+</div>
+</body></html>

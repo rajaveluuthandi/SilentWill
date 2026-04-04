@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "SilentWill",
+    "slug": "silentwill",
+    "version": "1.0.0",
+    "scheme": "silentwill",
+    "platforms": ["ios", "android"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.silentwill.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#4F46E5"
+      },
+      "package": "com.silentwill.app"
+    },
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
