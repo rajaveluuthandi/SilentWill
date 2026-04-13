@@ -2,15 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import {
-  MOCK_ASSETS,
-  MOCK_NOMINEES,
-  Asset,
-  AssetCategory,
-  getNetWorth,
-  formatCurrency,
-  CATEGORY_INFO,
-} from '@/data/mock';
+import { useAssets, useNominees, formatCurrency } from '@/hooks/useSupabaseData';
+import { CATEGORY_INFO, type AssetCategory } from '@/data/mock';
 
 const FILTER_TABS: { key: AssetCategory | 'all'; label: string }[] = [
   { key: 'all', label: 'All Assets' },
@@ -34,11 +27,12 @@ const STATUS_COLORS: Record<string, string> = {
 export default function AssetsPage() {
   const [activeFilter, setActiveFilter] = useState<AssetCategory | 'all'>('all');
   const [search, setSearch] = useState('');
+  const { assets, loading } = useAssets();
+  const { nominees } = useNominees();
 
-  const netWorth = getNetWorth();
-  const verifiedNominees = MOCK_NOMINEES.filter((n) => n.status === 'verified').length;
+  const netWorth = assets.reduce((sum, a) => sum + (a.value ?? 0), 0);
 
-  const filtered = MOCK_ASSETS.filter((a) => {
+  const filtered = assets.filter((a) => {
     const matchesFilter = activeFilter === 'all' || a.category === activeFilter;
     const matchesSearch = !search || a.name.toLowerCase().includes(search.toLowerCase());
     return matchesFilter && matchesSearch;
@@ -84,7 +78,7 @@ export default function AssetsPage() {
         </div>
         <div className="bg-surface-container-lowest rounded-xl p-5">
           <p className="text-xs text-on-surface-variant uppercase tracking-wider mb-1">Beneficiaries</p>
-          <p className="text-2xl font-manrope font-bold text-on-surface">{MOCK_NOMINEES.length}</p>
+          <p className="text-2xl font-manrope font-bold text-on-surface">{nominees.length}</p>
           <p className="text-xs text-on-surface-variant mt-1">Assigned to assets</p>
         </div>
         <div className="bg-surface-container-lowest rounded-xl p-5">
@@ -180,7 +174,7 @@ export default function AssetsPage() {
 
       {/* Pagination */}
       <div className="flex items-center justify-between text-sm text-on-surface-variant">
-        <p>Showing {filtered.length} of {MOCK_ASSETS.length} assets</p>
+        <p>Showing {filtered.length} of {assets.length} assets</p>
         <div className="flex items-center gap-1">
           <button className="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-container">&lt;</button>
           <button className="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center text-sm font-medium">1</button>

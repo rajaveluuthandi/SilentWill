@@ -1,8 +1,9 @@
 'use client';
 
-import { MOCK_NOMINEES } from '@/data/mock';
+import { useNominees } from '@/hooks/useSupabaseData';
 
 export default function NomineesPage() {
+  const { nominees: MOCK_NOMINEES } = useNominees();
   return (
     <div>
       <h1 className="text-3xl font-manrope font-bold text-on-surface mb-2">Vault-Level Nominees</h1>

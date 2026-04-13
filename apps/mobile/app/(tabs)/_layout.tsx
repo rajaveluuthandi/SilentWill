@@ -1,7 +1,20 @@
-import { Tabs } from 'expo-router';
+import { useEffect } from 'react';
+import { Tabs, useRouter } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function TabLayout() {
+  const { user, isDemo, isLoading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading && !user && !isDemo) {
+      router.replace('/');
+    }
+  }, [isLoading, user, isDemo]);
+
+  if (isLoading || (!user && !isDemo)) return null;
+
   return (
     <Tabs
       screenOptions={{
@@ -56,6 +69,15 @@ export default function TabLayout() {
           title: 'Verify',
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="verified-user" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="activity"
+        options={{
+          title: 'Activity',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="history" size={size} color={color} />
           ),
         }}
       />

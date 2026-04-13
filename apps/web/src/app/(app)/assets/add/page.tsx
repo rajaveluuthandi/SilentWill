@@ -2,32 +2,64 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAssets } from '@/hooks/useSupabaseData';
+import { useAuth } from '@/contexts/AuthContext';
 
-const CATEGORIES = [
-  'Select Category',
-  'Banking',
-  'Real Estate',
-  'Insurance',
-  'Government Funds',
-  'Stocks',
-  'Mutual Funds',
-  'Gold & Jewellery',
-  'Cash',
-  'Liabilities',
+const CATEGORIES: { label: string; value: string }[] = [
+  { label: 'Select Category', value: '' },
+  { label: 'Banking', value: 'banking' },
+  { label: 'Real Estate', value: 'real-estate' },
+  { label: 'Insurance', value: 'insurance' },
+  { label: 'Government Funds', value: 'government-funds' },
+  { label: 'Stocks', value: 'stocks' },
+  { label: 'Mutual Funds', value: 'mutual-funds' },
+  { label: 'Gold & Jewellery', value: 'gold' },
+  { label: 'Cash', value: 'cash' },
+  { label: 'Liabilities', value: 'liabilities' },
 ];
 
 export default function AddAssetPage() {
   const router = useRouter();
+  const { user, isDemo } = useAuth();
+  const { addAsset } = useAssets();
   const [name, setName] = useState('');
-  const [category, setCategory] = useState('Select Category');
+  const [category, setCategory] = useState('');
   const [value, setValue] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
   const [institution, setInstitution] = useState('');
   const [notes, setNotes] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
 
-  const handleSubmit = () => {
-    alert('Asset has been committed to your vault.');
-    router.push('/assets');
+  const handleSubmit = async () => {
+    if (!name.trim() || !category) {
+      setError('Please fill in asset name and category');
+      return;
+    }
+    if (isDemo) {
+      alert('Asset saving is not available in demo mode. Sign up to save assets.');
+      return;
+    }
+    setError(null);
+    setSaving(true);
+    const { error: err } = await addAsset({
+      user_id: user!.id,
+      name: name.trim(),
+      category: category as any,
+      subcategory: '',
+      value: parseFloat(value) || 0,
+      currency: 'INR',
+      status: 'pending',
+      institution: institution.trim() || null,
+      account_number: accountNumber.trim() || null,
+      notes: notes.trim() || null,
+    });
+    setSaving(false);
+    if (err) {
+      setError(err);
+    } else {
+      router.push('/assets');
+    }
   };
 
   return (
@@ -77,7 +109,7 @@ export default function AddAssetPage() {
               className="w-full h-11 px-4 rounded-lg bg-surface text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 border border-outline-variant"
             >
               {CATEGORIES.map((cat) => (
-                <option key={cat} value={cat}>{cat}</option>
+                <option key={cat.value} value={cat.value}>{cat.label}</option>
               ))}
             </select>
           </div>
@@ -155,6 +187,10 @@ export default function AddAssetPage() {
         </p>
       </div>
 
+      {error && (
+        <p className="text-sm text-status-alert mb-4">{error}</p>
+      )}
+
       {/* Actions */}
       <div className="flex items-center justify-between mb-8">
         <button
@@ -164,14 +200,12 @@ export default function AddAssetPage() {
           Cancel Changes
         </button>
         <div className="flex items-center gap-3">
-          <button className="px-6 py-2.5 rounded-lg border border-outline-variant text-sm font-medium text-on-surface hover:bg-surface-container transition-colors">
-            Save as Draft
-          </button>
           <button
             onClick={handleSubmit}
-            className="px-6 py-2.5 rounded-lg bg-primary text-on-primary text-sm font-semibold hover:opacity-90 transition-opacity"
+            disabled={saving}
+            className="px-6 py-2.5 rounded-lg bg-primary text-on-primary text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
           >
-            Secure Asset
+            {saving ? 'Saving...' : 'Secure Asset'}
           </button>
         </div>
       </div>

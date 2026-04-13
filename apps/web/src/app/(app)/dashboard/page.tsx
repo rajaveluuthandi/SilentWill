@@ -1,14 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import {
-  MOCK_ASSETS,
-  MOCK_NOMINEES,
-  MOCK_ACTIVITY,
-  getNetWorth,
-  formatCurrency,
-  getCategoryCounts,
-} from '@/data/mock';
+import { useAssets, useNominees, useActivityLog, formatCurrency } from '@/hooks/useSupabaseData';
+import { CATEGORY_INFO } from '@/data/mock';
 
 const PORTFOLIO_ITEMS = [
   { key: 'banking', label: 'Bank Accounts', icon: '🏦' },
@@ -20,20 +14,35 @@ const PORTFOLIO_ITEMS = [
   { key: 'liabilities', label: 'Liabilities', icon: '📉' },
 ] as const;
 
-export default function DashboardPage() {
-  const netWorth = getNetWorth();
-  const counts = getCategoryCounts();
-  const verifiedNominees = MOCK_NOMINEES.filter((n) => n.status === 'verified').length;
+function formatTimestamp(dateStr: string) {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 7) return `${days}d ago`;
+  if (days < 30) return `${Math.floor(days / 7)}w ago`;
+  return `${Math.floor(days / 30)}mo ago`;
+}
 
-  const getCategoryValue = (key: string) => {
-    return MOCK_ASSETS.filter((a) => a.category === key).reduce((s, a) => s + a.value, 0);
-  };
+export default function DashboardPage() {
+  const { assets } = useAssets();
+  const { nominees } = useNominees();
+  const { activity } = useActivityLog();
+
+  const netWorth = assets.reduce((sum, a) => sum + (a.value ?? 0), 0);
+
+  const getCategoryValue = (key: string) =>
+    assets.filter((a) => a.category === key).reduce((s, a) => s + (a.value ?? 0), 0);
+
+  const getCategoryCount = (key: string) =>
+    assets.filter((a) => a.category === key).length;
 
   return (
     <div>
       {/* Top Row */}
       <div className="grid grid-cols-3 gap-6 mb-8">
-        {/* Total Value */}
         <div className="col-span-2 bg-surface-container-lowest rounded-xl p-6">
           <p className="text-xs text-on-surface-variant tracking-widest uppercase mb-2 font-inter">
             Total Managed Asset Value
@@ -42,13 +51,9 @@ export default function DashboardPage() {
             <h2 className="text-4xl font-manrope font-bold text-on-surface">
               {formatCurrency(netWorth)}
             </h2>
-            <span className="flex items-center gap-1 text-status-secure text-sm font-medium bg-status-secure/10 px-2 py-1 rounded-full">
-              ↗ +12.4%
-            </span>
           </div>
         </div>
 
-        {/* Inheritance Health */}
         <div className="bg-vault-dark rounded-xl p-6 text-white">
           <div className="flex items-center justify-between mb-3">
             <svg className="w-8 h-8 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -60,7 +65,7 @@ export default function DashboardPage() {
           </div>
           <h3 className="text-lg font-manrope font-bold mb-1">Inheritance Health</h3>
           <p className="text-sm text-white/70 mb-4">
-            Last verification: 4 hours ago. Nominees are assigned at the vault level.
+            {nominees.length} nominee{nominees.length !== 1 ? 's' : ''} assigned at the vault level.
           </p>
           <Link
             href="/nominees"
@@ -82,7 +87,7 @@ export default function DashboardPage() {
         <div className="grid grid-cols-4 gap-4">
           {PORTFOLIO_ITEMS.map((item) => {
             const value = getCategoryValue(item.key);
-            const count = counts[item.key] || 0;
+            const count = getCategoryCount(item.key);
             return (
               <Link
                 key={item.key}
@@ -116,7 +121,6 @@ export default function DashboardPage() {
 
       {/* Bottom Row */}
       <div className="grid grid-cols-3 gap-6">
-        {/* Recent Activity */}
         <div className="col-span-2">
           <h3 className="text-lg font-manrope font-bold text-on-surface mb-4 flex items-center gap-2">
             <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -125,24 +129,27 @@ export default function DashboardPage() {
             Recent Activity
           </h3>
           <div className="space-y-4">
-            {MOCK_ACTIVITY.map((activity) => (
-              <div key={activity.id} className="flex items-start gap-4 bg-surface-container-lowest rounded-xl p-4">
-                <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-on-surface">{activity.title}</p>
-                  <p className="text-xs text-on-surface-variant mt-0.5">
-                    Status: Success. Heartbeat signal updated.
-                  </p>
+            {activity.length === 0 ? (
+              <p className="text-sm text-on-surface-variant text-center py-8">No activity yet. Add your first asset to get started.</p>
+            ) : (
+              activity.slice(0, 8).map((item) => (
+                <div key={item.id} className="flex items-start gap-4 bg-surface-container-lowest rounded-xl p-4">
+                  <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-on-surface">{item.title}</p>
+                    <p className="text-xs text-on-surface-variant mt-0.5">
+                      Status: Success. Heartbeat signal updated.
+                    </p>
+                  </div>
+                  <span className="text-xs text-on-surface-variant uppercase tracking-wider shrink-0">
+                    {'timestamp' in item ? (item as any).timestamp : formatTimestamp(item.created_at)}
+                  </span>
                 </div>
-                <span className="text-xs text-on-surface-variant uppercase tracking-wider shrink-0">
-                  {activity.timestamp}
-                </span>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
 
-        {/* Security Overview */}
         <div>
           <h3 className="text-lg font-manrope font-bold text-on-surface mb-4">Security Overview</h3>
           <div className="bg-surface-container-lowest rounded-xl p-5 space-y-4">

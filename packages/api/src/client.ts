@@ -1,27 +1,25 @@
-import type { ApiResponse } from './types';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import type { Database } from './types';
 
-const DEFAULT_BASE_URL = 'https://api.silentwill.example.com';
+export type { SupabaseClient } from '@supabase/supabase-js';
 
-export class ApiClient {
-  private baseUrl: string;
+export interface SupabaseClientOptions {
+  supabaseUrl: string;
+  supabaseAnonKey: string;
+  storage?: any;
+}
 
-  constructor(baseUrl: string = DEFAULT_BASE_URL) {
-    this.baseUrl = baseUrl;
-  }
+export function createSupabaseClient(
+  options: SupabaseClientOptions,
+): SupabaseClient<Database> {
+  const { supabaseUrl, supabaseAnonKey, storage } = options;
 
-  async get<T>(path: string): Promise<ApiResponse<T>> {
-    const res = await fetch(`${this.baseUrl}${path}`);
-    const data = await res.json();
-    return { data, status: res.status };
-  }
-
-  async post<T>(path: string, body: unknown): Promise<ApiResponse<T>> {
-    const res = await fetch(`${this.baseUrl}${path}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
-    const data = await res.json();
-    return { data, status: res.status };
-  }
+  return createClient<Database>(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      ...(storage ? { storage } : {}),
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true,
+    },
+  });
 }

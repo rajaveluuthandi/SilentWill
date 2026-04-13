@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
     '../../packages/ui/src/**/*.{js,ts,jsx,tsx}',
@@ -8,30 +9,30 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#4f6073',
-        'primary-container': '#c8d6e0',
-        secondary: '#49636f',
-        'secondary-container': '#d0e0e8',
-        tertiary: '#5a7a6b',
-        'tertiary-container': '#b8d4c8',
-        surface: '#f8f9fa',
-        'surface-container': '#eaeff1',
-        'surface-container-low': '#f0f3f5',
-        'surface-container-high': '#e0e5e8',
-        'surface-container-lowest': '#ffffff',
-        'on-surface': '#2b3437',
-        'on-surface-variant': '#6b7b83',
-        'on-primary': '#ffffff',
-        'outline-variant': '#c0ccd2',
+        primary: 'var(--color-primary)',
+        'primary-container': 'var(--color-primary-container)',
+        secondary: 'var(--color-secondary)',
+        'secondary-container': 'var(--color-secondary-container)',
+        tertiary: 'var(--color-tertiary)',
+        'tertiary-container': 'var(--color-tertiary-container)',
+        surface: 'var(--color-surface)',
+        'surface-container': 'var(--color-surface-container)',
+        'surface-container-low': 'var(--color-surface-container-low)',
+        'surface-container-high': 'var(--color-surface-container-high)',
+        'surface-container-lowest': 'var(--color-surface-container-lowest)',
+        'on-surface': 'var(--color-on-surface)',
+        'on-surface-variant': 'var(--color-on-surface-variant)',
+        'on-primary': 'var(--color-on-primary)',
+        'outline-variant': 'var(--color-outline-variant)',
         vault: {
-          dark: '#1a2332',
-          medium: '#2d3e50',
-          light: '#4f6073',
+          dark: 'var(--color-vault-dark)',
+          medium: 'var(--color-vault-medium)',
+          light: 'var(--color-vault-light)',
         },
         status: {
-          secure: '#2d8a5e',
-          pending: '#d4a843',
-          alert: '#c45a4a',
+          secure: 'var(--color-status-secure)',
+          pending: 'var(--color-status-pending)',
+          alert: 'var(--color-status-alert)',
         },
       },
       fontFamily: {

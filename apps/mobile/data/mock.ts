@@ -335,6 +335,34 @@ export const MOCK_ACTIVITY: ActivityLog[] = [
     type: 'settings',
     icon: 'refresh',
   },
+  {
+    id: '5',
+    title: 'Asset Updated: SBI Bluechip Fund value',
+    timestamp: '2w ago',
+    type: 'asset',
+    icon: 'pie-chart',
+  },
+  {
+    id: '6',
+    title: 'Nominee Verified: Priya Rajavelu',
+    timestamp: '3w ago',
+    type: 'legacy',
+    icon: 'verified',
+  },
+  {
+    id: '7',
+    title: 'Vault Locked — Session Ended',
+    timestamp: '1mo ago',
+    type: 'secure',
+    icon: 'lock',
+  },
+  {
+    id: '8',
+    title: 'New Asset Added: Sovereign Gold Bonds',
+    timestamp: '1mo ago',
+    type: 'asset',
+    icon: 'diamond',
+  },
 ];
 
 export const CATEGORY_INFO: Record<
