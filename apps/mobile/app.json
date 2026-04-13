@@ -4,7 +4,10 @@
     "slug": "silentwill",
     "version": "1.0.0",
     "scheme": "silentwill",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.silentwill.app"
@@ -17,6 +20,9 @@
     },
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

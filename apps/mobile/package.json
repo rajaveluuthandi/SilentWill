@@ -11,13 +11,18 @@
     "lint": "eslint app/"
   },
   "dependencies": {
+    "@expo-google-fonts/inter": "^0.4.2",
+    "@expo-google-fonts/manrope": "^0.4.2",
+    "@expo/vector-icons": "~14.0.4",
     "@silentwill/api": "*",
     "@silentwill/ui": "*",
     "@silentwill/utils": "*",
     "expo": "~52.0.0",
     "expo-constants": "~17.0.0",
+    "expo-font": "~13.0.4",
     "expo-linking": "~7.0.0",
     "expo-router": "~4.0.0",
+    "expo-splash-screen": "~0.29.24",
     "expo-status-bar": "~2.0.0",
     "nativewind": "^4.1.0",
     "react": "^18.3.0",

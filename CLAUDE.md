@@ -68,16 +68,53 @@ User enters asset data
 - **Draft entries**: Add assets offline, sync when connected
 - **Session cache**: Store decrypted data locally, cleared on logout
 
-## Development Approach
+## Development Phases
+
+### Phase 1: POC / Demo (Current)
+Goal: Build a demo to showcase to CTO and VC (venture capital).
+
+**Entry point — Auth/Landing screen with 3 options:**
+- **Sign In** → Shows "Coming soon" toast (placeholder, not implemented)
+- **Sign Up** → Shows "Coming soon" toast (placeholder, not implemented)
+- **Try Demo Mode** → Loads the full app with hardcoded mock data
+
+**Demo Mode:**
+- Pre-populated mock assets (fake bank accounts, insurance, PF, gold, land, etc.)
+- Full navigation through all screens — feels like a real app
+- Nothing persisted, no real backend calls
+- Dark/Light mode toggle for visual polish
+- Both mobile and web apps working
+
+**Screen build order (Demo Mode):**
+1. Auth/Landing screen (Sign In, Sign Up, Try Demo Mode)
+2. Dashboard (total assets overview with mock data)
+3. Asset Management (list/browse assets by category)
+4. Add Asset (form to add new asset)
+5. Asset Details (view individual asset info)
+6. Verification (dead man's switch concept UI)
+7. Sharing/Nominees (configure dependents)
+8. Recent Activity (activity log)
+
+**NOT in POC — deferred to Phase 2:**
+- Supabase backend / real auth
+- E2E encryption / security
+- expo-sqlite / offline sync
+- Biometric authentication
+- i18n, RTL, accessibility
+- Dead man's switch actual logic
+- PDF generation / email delivery
+
+### Phase 2: Production
+After POC approval, implement real backend, auth, encryption, and all production features.
 
 - **Screen-by-screen implementation** — not all at once
 - Reference designs are in `design/mobile/` and `design/web/` directories
 - AR features are deferred to V2
-- Security (E2E encryption, biometric auth, secure storage) is a core requirement from V1
+- Security (E2E encryption, biometric auth, secure storage) is a core requirement
 
-## UI Requirements (Mandatory for Every Screen)
+## UI Requirements (Mandatory for Every Screen — Phase 2)
 
-Every UI implementation MUST include all of the following. These are not optional or "nice to have" — they are required for every component, screen, and layout:
+These apply to production screens (Phase 2), not POC. During POC, only Dark/Light mode is implemented for visual polish.
 
 - **Dark/Light Mode**: All screens must support both appearances. Use semantic/adaptive colors, never hardcode light-only or dark-only values. Test in both modes.
 - **Localization (i18n)**: No hardcoded user-facing strings. All text must go through the localization system. Use translation keys for every label, button, message, and placeholder.
