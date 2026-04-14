@@ -1,37 +1,66 @@
 import { useState } from 'react';
-import { View, Text, Pressable, ScrollView, TextInput, Alert } from 'react-native';
+import { View, Text, Pressable, ScrollView, TextInput, Alert, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useAssets } from '../hooks/useSupabaseData';
+import { useAuth } from '../contexts/AuthContext';
 
-const CATEGORIES = [
-  'Banking',
-  'Real Estate',
-  'Insurance',
-  'Government Funds',
-  'Stocks',
-  'Mutual Funds',
-  'Gold & Jewellery',
-  'Cash',
-  'Liabilities',
+const CATEGORIES: { label: string; value: string }[] = [
+  { label: 'Banking', value: 'banking' },
+  { label: 'Real Estate', value: 'real-estate' },
+  { label: 'Insurance', value: 'insurance' },
+  { label: 'Government Funds', value: 'government-funds' },
+  { label: 'Stocks', value: 'stocks' },
+  { label: 'Mutual Funds', value: 'mutual-funds' },
+  { label: 'Gold & Jewellery', value: 'gold' },
+  { label: 'Cash', value: 'cash' },
+  { label: 'Liabilities', value: 'liabilities' },
 ];
 
 export default function AddAssetScreen() {
   const router = useRouter();
+  const { user, isDemo } = useAuth();
+  const { addAsset } = useAssets();
   const [name, setName] = useState('');
-  const [category, setCategory] = useState('Banking');
+  const [category, setCategory] = useState(CATEGORIES[0]);
   const [value, setValue] = useState('');
   const [institution, setInstitution] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
   const [notes, setNotes] = useState('');
   const [showCategories, setShowCategories] = useState(false);
+  const [saving, setSaving] = useState(false);
 
-  const handleSubmit = () => {
-    Alert.alert(
-      'Asset Added',
-      `${name || 'New Asset'} has been committed to your vault.`,
-      [{ text: 'OK', onPress: () => router.back() }]
-    );
+  const handleSubmit = async () => {
+    if (!name.trim()) {
+      Alert.alert('Error', 'Please enter an asset name');
+      return;
+    }
+    if (isDemo) {
+      Alert.alert('Demo Mode', 'Sign up to save assets.', [{ text: 'OK' }]);
+      return;
+    }
+    setSaving(true);
+    const { error } = await addAsset({
+      user_id: user!.id,
+      name: name.trim(),
+      category: category.value as any,
+      subcategory: '',
+      value: parseFloat(value) || 0,
+      currency: 'INR',
+      status: 'pending',
+      institution: institution.trim() || null,
+      account_number: accountNumber.trim() || null,
+      notes: notes.trim() || null,
+    });
+    setSaving(false);
+    if (error) {
+      Alert.alert('Error', error);
+    } else {
+      Alert.alert('Asset Added', `${name} has been committed to your vault.`, [
+        { text: 'OK', onPress: () => router.back() },
+      ]);
+    }
   };
 
   return (
@@ -104,7 +133,7 @@ export default function AddAssetScreen() {
                 className="bg-surface-container-lowest rounded-xl px-4 h-12 flex-row items-center justify-between"
               >
                 <Text className="text-sm text-on-surface" style={{ fontFamily: 'Inter' }}>
-                  {category}
+                  {category.label}
                 </Text>
                 <MaterialIcons name="expand-more" size={20} color="#6b7b83" />
               </Pressable>
@@ -112,15 +141,15 @@ export default function AddAssetScreen() {
                 <View className="bg-surface-container-lowest rounded-xl mt-1 overflow-hidden">
                   {CATEGORIES.map((cat) => (
                     <Pressable
-                      key={cat}
+                      key={cat.value}
                       onPress={() => {
                         setCategory(cat);
                         setShowCategories(false);
                       }}
-                      className={`px-4 py-3 ${cat === category ? 'bg-primary-container/30' : ''}`}
+                      className={`px-4 py-3 ${cat.value === category.value ? 'bg-primary-container/30' : ''}`}
                     >
                       <Text className="text-sm text-on-surface" style={{ fontFamily: 'Inter' }}>
-                        {cat}
+                        {cat.label}
                       </Text>
                     </Pressable>
                   ))}

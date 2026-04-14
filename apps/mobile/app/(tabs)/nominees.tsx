@@ -1,9 +1,10 @@
 import { View, Text, Pressable, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
-import { MOCK_NOMINEES } from '../../data/mock';
+import { useNominees } from '../../hooks/useSupabaseData';
 
 export default function NomineesScreen() {
+  const { nominees: MOCK_NOMINEES } = useNominees();
   return (
     <SafeAreaView className="flex-1 bg-surface" edges={['top']}>
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>

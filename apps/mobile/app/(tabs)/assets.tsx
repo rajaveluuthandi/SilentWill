@@ -3,15 +3,8 @@ import { View, Text, Pressable, ScrollView, TextInput, FlatList } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import {
-  MOCK_ASSETS,
-  MOCK_NOMINEES,
-  Asset,
-  AssetCategory,
-  getNetWorth,
-  formatCurrency,
-  CATEGORY_INFO,
-} from '../../data/mock';
+import { useAssets, useNominees, formatCurrency, CATEGORY_INFO } from '../../hooks/useSupabaseData';
+import type { Asset, AssetCategory } from '../../data/mock';
 
 const FILTER_TABS: { key: AssetCategory | 'all'; label: string }[] = [
   { key: 'all', label: 'All' },
@@ -41,10 +34,12 @@ export default function AssetsScreen() {
   const [activeFilter, setActiveFilter] = useState<AssetCategory | 'all'>('all');
   const [search, setSearch] = useState('');
 
-  const netWorth = getNetWorth();
-  const verifiedNominees = MOCK_NOMINEES.filter((n) => n.status === 'verified').length;
+  const { assets } = useAssets();
+  const { nominees } = useNominees();
+  const netWorth = assets.reduce((sum, a) => sum + (a.value ?? 0), 0);
+  const verifiedNominees = nominees.filter((n) => n.status === 'verified').length;
 
-  const filteredAssets = MOCK_ASSETS.filter((a) => {
+  const filteredAssets = assets.filter((a: any) => {
     const matchesFilter = activeFilter === 'all' || a.category === activeFilter;
     const matchesSearch =
       search === '' || a.name.toLowerCase().includes(search.toLowerCase());
@@ -134,7 +129,7 @@ export default function AssetsScreen() {
         </View>
         <View className="flex-row items-center">
           <View className="flex-row">
-            {MOCK_NOMINEES.slice(0, 3).map((n, i) => (
+            {nominees.slice(0, 3).map((n, i) => (
               <View
                 key={n.id}
                 className="w-6 h-6 rounded-full bg-primary items-center justify-center"

@@ -2,14 +2,7 @@ import { View, Text, Pressable, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import {
-  MOCK_ASSETS,
-  MOCK_NOMINEES,
-  getCategoryCounts,
-  getNetWorth,
-  formatCurrency,
-  CATEGORY_INFO,
-} from '../../data/mock';
+import { useAssets, useNominees, formatCurrency, CATEGORY_INFO } from '../../hooks/useSupabaseData';
 
 const CLUSTER_ITEMS = [
   { key: 'banking' as const, icon: 'account-balance' as const },
@@ -20,9 +13,12 @@ const CLUSTER_ITEMS = [
 
 export default function VaultScreen() {
   const router = useRouter();
-  const netWorth = getNetWorth();
-  const counts = getCategoryCounts();
-  const verifiedNominees = MOCK_NOMINEES.filter((n) => n.status === 'verified').length;
+  const { assets } = useAssets();
+  const { nominees } = useNominees();
+  const netWorth = assets.reduce((sum, a) => sum + (a.value ?? 0), 0);
+  const counts: Record<string, number> = {};
+  assets.forEach((a) => { counts[a.category] = (counts[a.category] || 0) + 1; });
+  const verifiedNominees = nominees.filter((n) => n.status === 'verified').length;
 
   return (
     <SafeAreaView className="flex-1 bg-surface" edges={['top']}>
@@ -78,7 +74,7 @@ export default function VaultScreen() {
           </Text>
           <View className="flex-row items-center gap-2">
             <View className="flex-row items-center">
-              {MOCK_NOMINEES.slice(0, 2).map((n, i) => (
+              {nominees.slice(0, 2).map((n, i) => (
                 <View
                   key={n.id}
                   className="w-7 h-7 rounded-full bg-vault-dark items-center justify-center"

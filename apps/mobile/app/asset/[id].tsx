@@ -1,13 +1,21 @@
-import { View, Text, Pressable, ScrollView, Alert } from 'react-native';
+import { View, Text, Pressable, ScrollView, Alert, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { MOCK_ASSETS, formatCurrency, CATEGORY_INFO } from '../../data/mock';
+import { useAssetById, formatCurrency, CATEGORY_INFO } from '../../hooks/useSupabaseData';
 
 export default function AssetDetailScreen() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const asset = MOCK_ASSETS.find((a) => a.id === id);
+  const { asset, loading } = useAssetById(id);
+
+  if (loading) {
+    return (
+      <SafeAreaView className="flex-1 bg-surface items-center justify-center">
+        <ActivityIndicator size="large" color="#4f6073" />
+      </SafeAreaView>
+    );
+  }
 
   if (!asset) {
     return (
@@ -19,7 +27,14 @@ export default function AssetDetailScreen() {
     );
   }
 
+  const a: any = asset;
   const info = CATEGORY_INFO[asset.category];
+  const accountNumber = a.account_number ?? a.accountNumber;
+  const routingNumber = a.routing_number ?? a.routingNumber;
+  const accountType = a.account_type ?? a.accountType;
+  const policyNumber = a.policy_number ?? a.policyNumber;
+  const maturityDate = a.maturity_date ?? a.maturityDate;
+  const folioNumber = a.folio_number ?? a.folioNumber;
 
   return (
     <SafeAreaView className="flex-1 bg-surface">
@@ -71,7 +86,7 @@ export default function AssetDetailScreen() {
             className="text-sm text-on-surface-variant mt-1"
             style={{ fontFamily: 'Inter' }}
           >
-            {info.label} • Created {new Date(asset.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+            {info.label} • Created {new Date(asset.created_at || asset.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
           </Text>
         </View>
 
@@ -91,13 +106,13 @@ export default function AssetDetailScreen() {
           </Text>
           <View className="bg-surface-container rounded-full px-3 py-1">
             <Text className="text-xs text-on-surface-variant" style={{ fontFamily: 'Inter' }}>
-              {asset.currency} • {asset.accountType || asset.subcategory}
+              {asset.currency} • {accountType || asset.subcategory}
             </Text>
           </View>
         </View>
 
         {/* Account Details */}
-        {(asset.accountNumber || asset.routingNumber || asset.accountType) && (
+        {(accountNumber || routingNumber || accountType) && (
           <View className="mx-5 mb-5 p-5 bg-surface-container-lowest rounded-card">
             <View className="flex-row items-center justify-between mb-4">
               <Text
@@ -108,33 +123,33 @@ export default function AssetDetailScreen() {
               </Text>
               <MaterialIcons name="info-outline" size={18} color="#6b7b83" />
             </View>
-            {asset.accountNumber && (
+            {accountNumber && (
               <View className="flex-row justify-between mb-3">
                 <Text className="text-sm text-on-surface-variant" style={{ fontFamily: 'Inter' }}>
                   Account Number
                 </Text>
                 <Text className="text-sm text-on-surface" style={{ fontFamily: 'Inter_600SemiBold' }}>
-                  {asset.accountNumber}
+                  {accountNumber}
                 </Text>
               </View>
             )}
-            {asset.routingNumber && (
+            {routingNumber && (
               <View className="flex-row justify-between mb-3">
                 <Text className="text-sm text-on-surface-variant" style={{ fontFamily: 'Inter' }}>
                   Routing Transit
                 </Text>
                 <Text className="text-sm text-on-surface" style={{ fontFamily: 'Inter_600SemiBold' }}>
-                  {asset.routingNumber}
+                  {routingNumber}
                 </Text>
               </View>
             )}
-            {asset.accountType && (
+            {accountType && (
               <View className="flex-row justify-between">
                 <Text className="text-sm text-on-surface-variant" style={{ fontFamily: 'Inter' }}>
                   Account Type
                 </Text>
                 <Text className="text-sm text-on-surface" style={{ fontFamily: 'Inter_600SemiBold' }}>
-                  {asset.accountType}
+                  {accountType}
                 </Text>
               </View>
             )}
@@ -142,7 +157,7 @@ export default function AssetDetailScreen() {
         )}
 
         {/* Additional Info */}
-        {(asset.policyNumber || asset.maturityDate || asset.location || asset.weight || asset.folioNumber) && (
+        {(policyNumber || maturityDate || asset.location || asset.weight || folioNumber) && (
           <View className="mx-5 mb-5 p-5 bg-surface-container-lowest rounded-card">
             <Text
               className="text-xs text-on-surface-variant tracking-widest uppercase mb-4"
@@ -150,16 +165,16 @@ export default function AssetDetailScreen() {
             >
               Additional Information
             </Text>
-            {asset.policyNumber && (
+            {policyNumber && (
               <View className="flex-row justify-between mb-3">
                 <Text className="text-sm text-on-surface-variant" style={{ fontFamily: 'Inter' }}>Policy Number</Text>
-                <Text className="text-sm text-on-surface" style={{ fontFamily: 'Inter_600SemiBold' }}>{asset.policyNumber}</Text>
+                <Text className="text-sm text-on-surface" style={{ fontFamily: 'Inter_600SemiBold' }}>{policyNumber}</Text>
               </View>
             )}
-            {asset.maturityDate && (
+            {maturityDate && (
               <View className="flex-row justify-between mb-3">
                 <Text className="text-sm text-on-surface-variant" style={{ fontFamily: 'Inter' }}>Maturity Date</Text>
-                <Text className="text-sm text-on-surface" style={{ fontFamily: 'Inter_600SemiBold' }}>{asset.maturityDate}</Text>
+                <Text className="text-sm text-on-surface" style={{ fontFamily: 'Inter_600SemiBold' }}>{maturityDate}</Text>
               </View>
             )}
             {asset.location && (
@@ -174,10 +189,10 @@ export default function AssetDetailScreen() {
                 <Text className="text-sm text-on-surface" style={{ fontFamily: 'Inter_600SemiBold' }}>{asset.weight}</Text>
               </View>
             )}
-            {asset.folioNumber && (
+            {folioNumber && (
               <View className="flex-row justify-between mb-3">
                 <Text className="text-sm text-on-surface-variant" style={{ fontFamily: 'Inter' }}>Folio Number</Text>
-                <Text className="text-sm text-on-surface" style={{ fontFamily: 'Inter_600SemiBold' }}>{asset.folioNumber}</Text>
+                <Text className="text-sm text-on-surface" style={{ fontFamily: 'Inter_600SemiBold' }}>{folioNumber}</Text>
               </View>
             )}
             {asset.nominee && (

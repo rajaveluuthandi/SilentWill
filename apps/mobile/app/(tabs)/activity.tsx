@@ -1,7 +1,8 @@
 import { View, Text, ScrollView, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
-import { MOCK_ACTIVITY, ActivityLog } from '../../data/mock';
+import { useActivityLog } from '../../hooks/useSupabaseData';
+import type { ActivityLog } from '../../data/mock';
 
 const TYPE_STYLE: Record<
   ActivityLog['type'],
@@ -22,6 +23,7 @@ const FILTERS: Array<'All' | 'Security' | 'Asset' | 'Legacy' | 'Settings'> = [
 ];
 
 export default function ActivityScreen() {
+  const { activity: MOCK_ACTIVITY } = useActivityLog();
   return (
     <SafeAreaView className="flex-1 bg-surface" edges={['top']}>
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
