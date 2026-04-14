@@ -89,8 +89,15 @@ Deno.serve(async (req: Request) => {
           email: userEmail,
         });
 
-        // TODO: Generate PDF and email to nominees
-        // await triggerVaultRelease(settings.user_id);
+        // Trigger vault release — generate report and email nominees
+        await fetch(`${SUPABASE_URL}/functions/v1/trigger-vault-release`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ user_id: settings.user_id }),
+        });
       }
     }
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useVerification } from '@/hooks/useSupabaseData';
+import { useVaultReport } from '@/hooks/useVaultReport';
 
 const INTERVALS = [
   { months: 3, label: '3 Months', desc: 'High-frequency safety check for active digital estates.' },
@@ -32,6 +33,7 @@ function timeSince(dateStr: string) {
 
 export default function VerificationPage() {
   const { settings, loading, verify, changeInterval } = useVerification();
+  const { generateAndPreview, generating } = useVaultReport();
 
   if (loading || !settings) {
     return (
@@ -144,6 +146,31 @@ export default function VerificationPage() {
               <p className="text-xs text-on-surface-variant leading-4">{interval.desc}</p>
             </button>
           ))}
+        </div>
+      </div>
+
+      {/* Report Preview */}
+      <div className="mb-8">
+        <div className="flex items-center gap-2 mb-5">
+          <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <h3 className="text-xl font-manrope font-bold text-on-surface">Vault Report</h3>
+        </div>
+        <div className="bg-surface-container-lowest rounded-xl p-6 flex items-center justify-between">
+          <div>
+            <p className="text-sm font-medium text-on-surface">Preview what nominees will receive</p>
+            <p className="text-xs text-on-surface-variant mt-1">
+              Generates a full HTML report with all decrypted asset details, values, and nominee info.
+            </p>
+          </div>
+          <button
+            onClick={generateAndPreview}
+            disabled={generating}
+            className="px-5 py-2.5 rounded-lg bg-vault-dark text-white text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+          >
+            {generating ? 'Generating...' : 'Preview Report'}
+          </button>
         </div>
       </div>
 
