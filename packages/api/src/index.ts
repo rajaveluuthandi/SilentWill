@@ -1,5 +1,5 @@
 export { createSupabaseClient } from './client';
-export { signUpWithEmail, signInWithEmail, signOut } from './auth';
+export { signUpWithEmail, signInWithEmail, signInWithGoogle, signOut } from './auth';
 export type { SupabaseClient, SupabaseClientOptions } from './client';
 export type {
   Database,

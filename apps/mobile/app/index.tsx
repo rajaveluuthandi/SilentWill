@@ -140,10 +140,27 @@ export default function AuthScreen() {
                 </Pressable>
               </View>
 
-              <View className="flex-row items-center mb-8">
+              <View className="flex-row items-center mb-6">
                 <View className="flex-1 h-px bg-outline-variant" />
                 <Text className="mx-4 text-on-surface-variant text-sm" style={{ fontFamily: 'Inter' }}>
                   or
+                </Text>
+                <View className="flex-1 h-px bg-outline-variant" />
+              </View>
+
+              <Pressable
+                onPress={() => auth.signInWithGoogle()}
+                className="h-14 rounded-xl bg-surface-container-lowest items-center justify-center flex-row gap-3 mb-4"
+              >
+                <Text className="text-on-surface text-base" style={{ fontFamily: 'Inter_600SemiBold' }}>
+                  Continue with Google
+                </Text>
+              </Pressable>
+
+              <View className="flex-row items-center mb-6">
+                <View className="flex-1 h-px bg-outline-variant" />
+                <Text className="mx-4 text-on-surface-variant text-xs" style={{ fontFamily: 'Inter' }}>
+                  or explore
                 </Text>
                 <View className="flex-1 h-px bg-outline-variant" />
               </View>

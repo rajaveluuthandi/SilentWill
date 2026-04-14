@@ -11,6 +11,7 @@ interface AuthContextValue {
   isLoading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signUp: (email: string, password: string) => Promise<{ error: string | null }>;
+  signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
   enterDemoMode: () => void;
 }
@@ -47,6 +48,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return { error: error?.message ?? null };
   }, []);
 
+  const signInWithGoogleFn = useCallback(async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: window.location.origin + '/dashboard' },
+    });
+  }, []);
+
   const signOutFn = useCallback(async () => {
     await supabase.auth.signOut();
     setIsDemo(false);
@@ -65,6 +73,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         isLoading,
         signIn,
         signUp,
+        signInWithGoogle: signInWithGoogleFn,
         signOut: signOutFn,
         enterDemoMode,
       }}

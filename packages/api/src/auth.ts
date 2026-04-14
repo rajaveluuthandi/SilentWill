@@ -16,6 +16,13 @@ export async function signInWithEmail(
   return client.auth.signInWithPassword({ email, password });
 }
 
+export async function signInWithGoogle(client: SupabaseClient, redirectTo?: string) {
+  return client.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo },
+  });
+}
+
 export async function signOut(client: SupabaseClient) {
   return client.auth.signOut();
 }
