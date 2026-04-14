@@ -31,3 +31,10 @@ export {
   getActivity,
   logActivity,
 } from './services/activity';
+
+export {
+  getOrCreateVaultKey,
+  encryptSensitiveFields,
+  decryptSensitiveFields,
+  decryptSensitiveFieldsArray,
+} from './crypto';

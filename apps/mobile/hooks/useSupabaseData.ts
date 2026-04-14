@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import {
@@ -12,6 +12,10 @@ import {
   deleteNominee,
   getActivity,
   logActivity,
+  getOrCreateVaultKey,
+  encryptSensitiveFields,
+  decryptSensitiveFields,
+  decryptSensitiveFieldsArray,
 } from '@silentwill/api';
 import type { Asset, AssetCategory, Nominee, ActivityLog } from '@silentwill/api';
 import {
@@ -24,8 +28,28 @@ import {
 
 export { formatCurrency, CATEGORY_INFO };
 
+function useVaultKey() {
+  const { isDemo, session } = useAuth();
+  const keyRef = useRef<CryptoKey | null>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (isDemo || !session) {
+      setReady(true);
+      return;
+    }
+    getOrCreateVaultKey(supabase).then((key) => {
+      keyRef.current = key;
+      setReady(true);
+    });
+  }, [isDemo, session]);
+
+  return { key: keyRef.current, ready };
+}
+
 export function useAssets(category?: AssetCategory) {
   const { isDemo, user } = useAuth();
+  const { key, ready } = useVaultKey();
   const [assets, setAssets] = useState<Asset[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -38,13 +62,15 @@ export function useAssets(category?: AssetCategory) {
       setLoading(false);
       return;
     }
+    if (!ready) return;
     setLoading(true);
     const { data } = category
       ? await getAssetsByCategory(supabase, category)
       : await getAssets(supabase);
-    setAssets(data ?? []);
+    const decrypted = key && data ? await decryptSensitiveFieldsArray(key, data) : data;
+    setAssets((decrypted ?? []) as Asset[]);
     setLoading(false);
-  }, [isDemo, category]);
+  }, [isDemo, category, key, ready]);
 
   useEffect(() => {
     refresh();
@@ -53,7 +79,8 @@ export function useAssets(category?: AssetCategory) {
   const addAsset = useCallback(
     async (asset: Omit<Asset, 'id' | 'created_at' | 'updated_at'>) => {
       if (isDemo) return { error: 'Cannot add assets in demo mode' };
-      const { data, error } = await createAsset(supabase, asset);
+      const encrypted = key ? await encryptSensitiveFields(key, asset) : asset;
+      const { data, error } = await createAsset(supabase, encrypted);
       if (!error && data) {
         await logActivity(supabase, {
           user_id: user!.id,
@@ -65,7 +92,7 @@ export function useAssets(category?: AssetCategory) {
       }
       return { data, error: error?.message ?? null };
     },
-    [isDemo, user, refresh],
+    [isDemo, user, key, refresh],
   );
 
   const removeAsset = useCallback(
@@ -83,6 +110,7 @@ export function useAssets(category?: AssetCategory) {
 
 export function useAssetById(id: string) {
   const { isDemo } = useAuth();
+  const { key, ready } = useVaultKey();
   const [asset, setAsset] = useState<Asset | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -93,12 +121,14 @@ export function useAssetById(id: string) {
       setLoading(false);
       return;
     }
+    if (!ready) return;
     setLoading(true);
-    getAssetById(supabase, id).then(({ data }) => {
-      setAsset(data);
+    getAssetById(supabase, id).then(async ({ data }) => {
+      const decrypted = key && data ? await decryptSensitiveFields(key, data) : data;
+      setAsset(decrypted as Asset | null);
       setLoading(false);
     });
-  }, [isDemo, id]);
+  }, [isDemo, id, key, ready]);
 
   return { asset, loading };
 }
