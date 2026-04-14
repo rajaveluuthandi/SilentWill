@@ -25,6 +25,15 @@ import {
   formatCurrency,
   CATEGORY_INFO,
 } from '../data/mock';
+import {
+  getCachedAssets,
+  cacheAssets,
+  getCachedNominees,
+  cacheNominees,
+  getCachedActivity,
+  cacheActivity,
+  savePendingChange,
+} from '../lib/database';
 
 export { formatCurrency, CATEGORY_INFO };
 
@@ -63,12 +72,30 @@ export function useAssets(category?: AssetCategory) {
       return;
     }
     if (!ready) return;
-    setLoading(true);
-    const { data } = category
-      ? await getAssetsByCategory(supabase, category)
-      : await getAssets(supabase);
-    const decrypted = key && data ? await decryptSensitiveFieldsArray(key, data) : data;
-    setAssets((decrypted ?? []) as Asset[]);
+
+    // Read from cache first (fast, offline-capable)
+    try {
+      const cached = await getCachedAssets();
+      if (cached.length > 0) {
+        const filtered = category ? cached.filter((a: any) => a.category === category) : cached;
+        setAssets(filtered as Asset[]);
+        setLoading(false);
+      }
+    } catch {}
+
+    // Sync from Supabase in background
+    try {
+      const { data } = category
+        ? await getAssetsByCategory(supabase, category)
+        : await getAssets(supabase);
+      const decrypted = key && data ? await decryptSensitiveFieldsArray(key, data) : data;
+      const result = (decrypted ?? []) as Asset[];
+      setAssets(result);
+      if (!category && result.length > 0) {
+        await cacheAssets(result);
+      }
+    } catch {}
+
     setLoading(false);
   }, [isDemo, category, key, ready]);
 
@@ -80,17 +107,23 @@ export function useAssets(category?: AssetCategory) {
     async (asset: Omit<Asset, 'id' | 'created_at' | 'updated_at'>) => {
       if (isDemo) return { error: 'Cannot add assets in demo mode' };
       const encrypted = key ? await encryptSensitiveFields(key, asset) : asset;
-      const { data, error } = await createAsset(supabase, encrypted);
-      if (!error && data) {
-        await logActivity(supabase, {
-          user_id: user!.id,
-          title: `New Asset Added: ${data.name}`,
-          type: 'asset',
-          icon: 'bank',
-        });
-        await refresh();
+      try {
+        const { data, error } = await createAsset(supabase, encrypted);
+        if (!error && data) {
+          await logActivity(supabase, {
+            user_id: user!.id,
+            title: `New Asset Added: ${data.name}`,
+            type: 'asset',
+            icon: 'bank',
+          });
+          await refresh();
+        }
+        return { data, error: error?.message ?? null };
+      } catch {
+        // Offline: save as pending change
+        await savePendingChange('assets', 'insert', asset);
+        return { data: null, error: null };
       }
-      return { data, error: error?.message ?? null };
     },
     [isDemo, user, key, refresh],
   );
@@ -122,12 +155,22 @@ export function useAssetById(id: string) {
       return;
     }
     if (!ready) return;
-    setLoading(true);
+
+    // Try cache first
+    getCachedAssets().then((cached) => {
+      const found = cached.find((a: any) => a.id === id);
+      if (found) {
+        setAsset(found as Asset);
+        setLoading(false);
+      }
+    }).catch(() => {});
+
+    // Then fetch fresh
     getAssetById(supabase, id).then(async ({ data }) => {
       const decrypted = key && data ? await decryptSensitiveFields(key, data) : data;
       setAsset(decrypted as Asset | null);
       setLoading(false);
-    });
+    }).catch(() => {});
   }, [isDemo, id, key, ready]);
 
   return { asset, loading };
@@ -144,9 +187,24 @@ export function useNominees() {
       setLoading(false);
       return;
     }
-    setLoading(true);
-    const { data } = await getNominees(supabase);
-    setNominees(data ?? []);
+
+    // Cache first
+    try {
+      const cached = await getCachedNominees();
+      if (cached.length > 0) {
+        setNominees(cached as Nominee[]);
+        setLoading(false);
+      }
+    } catch {}
+
+    // Sync from Supabase
+    try {
+      const { data } = await getNominees(supabase);
+      const result = (data ?? []) as Nominee[];
+      setNominees(result);
+      if (result.length > 0) await cacheNominees(result);
+    } catch {}
+
     setLoading(false);
   }, [isDemo]);
 
@@ -196,9 +254,24 @@ export function useActivityLog() {
       setLoading(false);
       return;
     }
-    setLoading(true);
-    const { data } = await getActivity(supabase);
-    setActivity(data ?? []);
+
+    // Cache first
+    try {
+      const cached = await getCachedActivity();
+      if (cached.length > 0) {
+        setActivity(cached as ActivityLog[]);
+        setLoading(false);
+      }
+    } catch {}
+
+    // Sync from Supabase
+    try {
+      const { data } = await getActivity(supabase);
+      const result = (data ?? []) as ActivityLog[];
+      setActivity(result);
+      if (result.length > 0) await cacheActivity(result);
+    } catch {}
+
     setLoading(false);
   }, [isDemo]);
 

@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState, useCallback } fr
 import { makeRedirectUri } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import { supabase } from '../lib/supabase';
+import { clearAllData } from '../lib/database';
 import type { Session, User } from '@supabase/supabase-js';
 
 WebBrowser.maybeCompleteAuthSession();
@@ -72,6 +73,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signOutFn = useCallback(async () => {
     await supabase.auth.signOut();
+    await clearAllData();
     setIsDemo(false);
   }, []);
 
