@@ -33,6 +33,14 @@ export {
 } from './services/activity';
 
 export {
+  getVerificationSettings,
+  createVerificationSettings,
+  verifyHeartbeat,
+  updateVerificationInterval,
+} from './services/verification';
+export type { VerificationSettings } from './services/verification';
+
+export {
   getOrCreateVaultKey,
   encryptSensitiveFields,
   decryptSensitiveFields,

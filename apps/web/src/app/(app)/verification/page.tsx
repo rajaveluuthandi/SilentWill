@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useVerification } from '@/hooks/useSupabaseData';
 
 const INTERVALS = [
   { months: 3, label: '3 Months', desc: 'High-frequency safety check for active digital estates.' },
@@ -8,8 +8,53 @@ const INTERVALS = [
   { months: 12, label: '1 Year', desc: 'Long-term preservation. Requires secondary contact verification.' },
 ];
 
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+
+function daysUntil(dateStr: string) {
+  const diff = new Date(dateStr).getTime() - Date.now();
+  return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+}
+
+function timeSince(dateStr: string) {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  if (hours < 1) return 'Just now';
+  if (hours < 24) return `${hours} hours ago`;
+  const days = Math.floor(hours / 24);
+  return `${days} day${days !== 1 ? 's' : ''} ago`;
+}
+
 export default function VerificationPage() {
-  const [selectedInterval, setSelectedInterval] = useState(6);
+  const { settings, loading, verify, changeInterval } = useVerification();
+
+  if (loading || !settings) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  const days = daysUntil(settings.next_check);
+  const totalDays = settings.interval_months * 30;
+  const elapsed = totalDays - days;
+  const progress = Math.min(100, Math.round((elapsed / totalDays) * 100));
+
+  const statusColor =
+    settings.status === 'active'
+      ? 'bg-status-secure/10 text-status-secure'
+      : settings.status === 'grace'
+      ? 'bg-status-pending/10 text-status-pending'
+      : 'bg-status-alert/10 text-status-alert';
+
+  const statusLabel =
+    settings.status === 'active' ? 'Active' : settings.status === 'grace' ? 'Grace Period' : 'Triggered';
 
   return (
     <div>
@@ -21,34 +66,33 @@ export default function VerificationPage() {
 
       {/* Status Row */}
       <div className="grid grid-cols-3 gap-6 mb-8">
-        {/* Verification Status */}
         <div className="col-span-2 bg-surface-container-lowest rounded-xl p-6">
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-xs font-semibold px-2.5 py-1 rounded bg-status-secure/10 text-status-secure uppercase tracking-wider">
-              Active
+            <span className={`text-xs font-semibold px-2.5 py-1 rounded uppercase tracking-wider ${statusColor}`}>
+              {statusLabel}
             </span>
-            <span className="text-xs text-on-surface-variant ml-auto">Last Checked: Oct 12, 2023</span>
+            <span className="text-xs text-on-surface-variant ml-auto">
+              Last Checked: {timeSince(settings.last_verified)}
+            </span>
           </div>
           <h2 className="text-2xl font-manrope font-bold text-on-surface mb-4">
-            Verification Status: Confirmed
+            Verification Status: {settings.status === 'active' ? 'Confirmed' : settings.status === 'grace' ? 'Pending Response' : 'Vault Released'}
           </h2>
           <div className="flex items-end justify-between mb-3">
             <div>
               <p className="text-sm text-on-surface-variant mb-1">Next Verification Due</p>
-              <p className="text-lg font-semibold text-on-surface">January 12, 2024</p>
+              <p className="text-lg font-semibold text-on-surface">{formatDate(settings.next_check)}</p>
             </div>
             <div className="text-right">
-              <p className="text-4xl font-manrope font-bold text-on-surface">91</p>
+              <p className="text-4xl font-manrope font-bold text-on-surface">{days}</p>
               <p className="text-sm text-on-surface-variant">days remaining</p>
             </div>
           </div>
-          {/* Progress bar */}
           <div className="w-full h-2 bg-surface-container rounded-full overflow-hidden">
-            <div className="h-full bg-primary rounded-full" style={{ width: '50%' }} />
+            <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
         </div>
 
-        {/* Instant Check-in */}
         <div className="bg-surface-container-lowest rounded-xl p-6 flex flex-col items-center justify-center text-center">
           <div className="w-14 h-14 rounded-2xl bg-surface-container flex items-center justify-center mb-4">
             <svg className="w-7 h-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -60,7 +104,7 @@ export default function VerificationPage() {
             Manually reset the countdown timer by verifying your identity now.
           </p>
           <button
-            onClick={() => alert('Identity verified. Timer reset.')}
+            onClick={() => verify()}
             className="w-full py-2.5 rounded-lg border border-outline-variant text-sm font-medium text-on-surface hover:bg-surface-container transition-colors"
           >
             Verify Now
@@ -80,9 +124,9 @@ export default function VerificationPage() {
           {INTERVALS.map((interval) => (
             <button
               key={interval.months}
-              onClick={() => setSelectedInterval(interval.months)}
+              onClick={() => changeInterval(interval.months)}
               className={`p-5 rounded-xl text-left transition-all ${
-                selectedInterval === interval.months
+                settings.interval_months === interval.months
                   ? 'bg-primary-container/30 ring-2 ring-primary'
                   : 'bg-surface-container-lowest hover:bg-surface-container'
               }`}
@@ -90,9 +134,9 @@ export default function VerificationPage() {
               <div className="flex items-center justify-between mb-3">
                 <h4 className="text-lg font-manrope font-bold text-on-surface">{interval.label}</h4>
                 <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                  selectedInterval === interval.months ? 'border-primary' : 'border-outline-variant'
+                  settings.interval_months === interval.months ? 'border-primary' : 'border-outline-variant'
                 }`}>
-                  {selectedInterval === interval.months && (
+                  {settings.interval_months === interval.months && (
                     <div className="w-2.5 h-2.5 rounded-full bg-primary" />
                   )}
                 </div>

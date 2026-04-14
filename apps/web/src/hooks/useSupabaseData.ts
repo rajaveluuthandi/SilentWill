@@ -16,8 +16,12 @@ import {
   getOrCreateVaultKey,
   encryptSensitiveFields,
   decryptSensitiveFieldsArray,
+  getVerificationSettings,
+  createVerificationSettings,
+  verifyHeartbeat,
+  updateVerificationInterval,
 } from '@silentwill/api';
-import type { Asset, AssetCategory, Nominee, ActivityLog } from '@silentwill/api';
+import type { Asset, AssetCategory, Nominee, ActivityLog, VerificationSettings } from '@silentwill/api';
 import {
   MOCK_ASSETS,
   MOCK_NOMINEES,
@@ -184,4 +188,60 @@ export function useActivityLog() {
   }, [refresh]);
 
   return { activity, loading, refresh };
+}
+
+const DEMO_VERIFICATION: VerificationSettings = {
+  id: 'demo',
+  user_id: 'demo',
+  interval_months: 6,
+  last_verified: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(),
+  next_check: new Date(Date.now() + 91 * 24 * 60 * 60 * 1000).toISOString(),
+  reminder_stage: 0,
+  status: 'active',
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+};
+
+export function useVerification() {
+  const { isDemo, user } = useAuth();
+  const [settings, setSettings] = useState<VerificationSettings | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const refresh = useCallback(async () => {
+    if (isDemo) {
+      setSettings(DEMO_VERIFICATION);
+      setLoading(false);
+      return;
+    }
+    if (!user) return;
+    setLoading(true);
+    let { data } = await getVerificationSettings(supabase);
+    if (!data) {
+      const result = await createVerificationSettings(supabase, user.id, 6);
+      data = result.data;
+    }
+    setSettings(data);
+    setLoading(false);
+  }, [isDemo, user]);
+
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
+
+  const verify = useCallback(async () => {
+    if (isDemo || !settings) return;
+    const { data } = await verifyHeartbeat(supabase, settings.id, settings.interval_months);
+    if (data) setSettings(data);
+  }, [isDemo, settings]);
+
+  const changeInterval = useCallback(
+    async (months: number) => {
+      if (isDemo || !settings) return;
+      const { data } = await updateVerificationInterval(supabase, settings.id, months);
+      if (data) setSettings(data);
+    },
+    [isDemo, settings],
+  );
+
+  return { settings, loading, verify, changeInterval, refresh };
 }
