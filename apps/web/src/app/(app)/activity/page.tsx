@@ -39,7 +39,7 @@ export default function ActivityPage() {
   const { activity } = useActivityLog();
 
   const items = activity.filter(
-    (a: any) => filter === 'All' || TYPE_STYLE[a.type]?.label === filter
+    (a) => filter === 'All' || TYPE_STYLE[a.type as keyof typeof TYPE_STYLE]?.label === filter
   );
 
   return (
@@ -97,7 +97,7 @@ export default function ActivityPage() {
                         {style.label}
                       </span>
                       <span className="text-xs text-on-surface-variant">·</span>
-                      <span className="text-xs text-on-surface-variant">{item.timestamp}</span>
+                      <span className="text-xs text-on-surface-variant">{item.created_at ? new Date(item.created_at).toLocaleDateString() : ''}</span>
                     </div>
                   </div>
                 </li>
