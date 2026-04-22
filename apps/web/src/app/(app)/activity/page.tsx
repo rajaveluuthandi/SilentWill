@@ -39,7 +39,7 @@ export default function ActivityPage() {
   const { activity } = useActivityLog();
 
   const items = activity.filter(
-    (a: ActivityLog) => filter === 'All' || TYPE_STYLE[a.type]?.label === filter
+    (a) => filter === 'All' || TYPE_STYLE[a.type as keyof typeof TYPE_STYLE]?.label === filter
   );
 
   return (
