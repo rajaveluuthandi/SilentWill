@@ -97,7 +97,7 @@ export default function ActivityPage() {
                         {style.label}
                       </span>
                       <span className="text-xs text-on-surface-variant">·</span>
-                      <span className="text-xs text-on-surface-variant">{item.timestamp}</span>
+                      <span className="text-xs text-on-surface-variant">{item.created_at ? new Date(item.created_at).toLocaleDateString() : ''}</span>
                     </div>
                   </div>
                 </li>
