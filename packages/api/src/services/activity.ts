@@ -1,7 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { Database, ActivityLog } from '../types';
+import type { ActivityLog } from '../types';
 
-type Client = SupabaseClient<Database>;
+type Client = SupabaseClient<any>;
 
 export async function getActivity(client: Client) {
   const { data, error } = await client

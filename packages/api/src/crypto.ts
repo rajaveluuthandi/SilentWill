@@ -12,21 +12,20 @@ const SENSITIVE_FIELDS = [
   'notes',
 ] as const;
 
-function toBase64(buf: ArrayBuffer): string {
-  const bytes = new Uint8Array(buf);
+function toBase64(bytes: Uint8Array): string {
   let binary = '';
   for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
   return btoa(binary);
 }
 
-function fromBase64(str: string): Uint8Array {
+function fromBase64(str: string): Uint8Array<ArrayBuffer> {
   const binary = atob(str);
-  const bytes = new Uint8Array(binary.length);
+  const bytes = new Uint8Array(binary.length) as Uint8Array<ArrayBuffer>;
   for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
   return bytes;
 }
 
-async function importKey(raw: Uint8Array): Promise<CryptoKey> {
+async function importKey(raw: Uint8Array<ArrayBuffer>): Promise<CryptoKey> {
   return crypto.subtle.importKey('raw', raw, { name: ALGO }, false, [
     'encrypt',
     'decrypt',
@@ -34,10 +33,10 @@ async function importKey(raw: Uint8Array): Promise<CryptoKey> {
 }
 
 async function encryptValue(key: CryptoKey, plaintext: string): Promise<string> {
-  const iv = crypto.getRandomValues(new Uint8Array(IV_LENGTH));
-  const encoded = new TextEncoder().encode(plaintext);
+  const iv = crypto.getRandomValues(new Uint8Array(IV_LENGTH)) as Uint8Array<ArrayBuffer>;
+  const encoded = new TextEncoder().encode(plaintext) as Uint8Array<ArrayBuffer>;
   const ciphertext = await crypto.subtle.encrypt({ name: ALGO, iv }, key, encoded);
-  return toBase64(iv) + ':' + toBase64(ciphertext);
+  return toBase64(iv) + ':' + toBase64(new Uint8Array(ciphertext));
 }
 
 async function decryptValue(key: CryptoKey, encrypted: string): Promise<string> {
@@ -60,12 +59,12 @@ export async function getOrCreateVaultKey(
   if (!user) throw new Error('Not authenticated');
 
   const metadata = user.user_metadata;
-  let rawKey: Uint8Array;
+  let rawKey: Uint8Array<ArrayBuffer>;
 
   if (metadata?.vault_key) {
     rawKey = fromBase64(metadata.vault_key);
   } else {
-    rawKey = crypto.getRandomValues(new Uint8Array(KEY_LENGTH / 8));
+    rawKey = crypto.getRandomValues(new Uint8Array(KEY_LENGTH / 8)) as Uint8Array<ArrayBuffer>;
     await client.auth.updateUser({
       data: { vault_key: toBase64(rawKey) },
     });

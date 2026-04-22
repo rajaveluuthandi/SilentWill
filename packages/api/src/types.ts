@@ -67,17 +67,24 @@ export type Database = {
         Row: Asset;
         Insert: Omit<Asset, 'id' | 'created_at' | 'updated_at'>;
         Update: Partial<Omit<Asset, 'id' | 'user_id' | 'created_at' | 'updated_at'>>;
+        Relationships: [];
       };
       nominees: {
         Row: Nominee;
         Insert: Omit<Nominee, 'id' | 'created_at' | 'updated_at'>;
         Update: Partial<Omit<Nominee, 'id' | 'user_id' | 'created_at' | 'updated_at'>>;
+        Relationships: [];
       };
       activity_log: {
         Row: ActivityLog;
         Insert: Omit<ActivityLog, 'id' | 'created_at'>;
         Update: Partial<Omit<ActivityLog, 'id' | 'user_id' | 'created_at'>>;
+        Relationships: [];
       };
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: Record<string, never>;
+    CompositeTypes: Record<string, never>;
   };
 };

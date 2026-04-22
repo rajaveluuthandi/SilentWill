@@ -1,7 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { Database, Asset, AssetCategory } from '../types';
+import type { Asset, AssetCategory } from '../types';
 
-type Client = SupabaseClient<Database>;
+type Client = SupabaseClient<any>;
 
 export async function getAssets(client: Client) {
   const { data, error } = await client

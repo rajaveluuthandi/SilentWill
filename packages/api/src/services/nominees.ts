@@ -1,7 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { Database, Nominee } from '../types';
+import type { Nominee } from '../types';
 
-type Client = SupabaseClient<Database>;
+type Client = SupabaseClient<any>;
 
 export async function getNominees(client: Client) {
   const { data, error } = await client
