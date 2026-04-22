@@ -24,10 +24,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
+    const init = async () => {
+      // Process OAuth hash tokens before checking session (implicit flow)
+      if (typeof window !== 'undefined' && window.location.hash.includes('access_token')) {
+        await supabase.auth.getSessionFromUrl({ storeSession: true });
+      }
+      const { data } = await supabase.auth.getSession();
       setSession(data.session);
       setIsLoading(false);
-    });
+    };
+    init();
 
     const {
       data: { subscription },
