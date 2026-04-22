@@ -27,7 +27,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const init = async () => {
       // Process OAuth hash tokens before checking session (implicit flow)
       if (typeof window !== 'undefined' && window.location.hash.includes('access_token')) {
-        await supabase.auth.getSessionFromUrl({ storeSession: true });
+        const params = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = params.get('access_token');
+        const refreshToken = params.get('refresh_token');
+        if (accessToken && refreshToken) {
+          await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+        }
       }
       const { data } = await supabase.auth.getSession();
       setSession(data.session);
