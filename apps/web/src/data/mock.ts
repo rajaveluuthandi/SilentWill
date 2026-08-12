@@ -282,27 +282,27 @@ export const MOCK_ASSETS: Asset[] = [
 export const MOCK_NOMINEES: Nominee[] = [
   {
     id: '1',
-    name: 'Priya Rajavelu',
+    name: 'Shameera Rajavelu',
     relation: 'Spouse',
-    email: 'priya@example.com',
+    email: 'shameera@example.com',
     phone: '+91 98765 43210',
     status: 'verified',
   },
   {
     id: '2',
-    name: 'Arun Rajavelu',
-    relation: 'Son',
-    email: 'arun@example.com',
+    name: 'Innila Rajavelu',
+    relation: 'Daughter',
+    email: 'innila@example.com',
     phone: '+91 87654 32109',
-    status: 'pending',
+    status: 'verified',
   },
   {
     id: '3',
-    name: 'Kavitha Rajavelu',
-    relation: 'Daughter',
-    email: 'kavitha@example.com',
+    name: 'Adhiyan Rajavelu',
+    relation: 'Son',
+    email: 'adhiyan@example.com',
     phone: '+91 76543 21098',
-    status: 'verified',
+    status: 'pending',
   },
 ];
 
@@ -323,7 +323,7 @@ export const MOCK_ACTIVITY: ActivityLog[] = [
   },
   {
     id: '3',
-    title: 'Nominee Added: Kavitha Rajavelu',
+    title: 'Nominee Added: Innila Rajavelu',
     timestamp: '3d ago',
     type: 'legacy',
     icon: 'person-add',
@@ -344,7 +344,7 @@ export const MOCK_ACTIVITY: ActivityLog[] = [
   },
   {
     id: '6',
-    title: 'Nominee Verified: Priya Rajavelu',
+    title: 'Nominee Verified: Shameera Rajavelu',
     timestamp: '3w ago',
     type: 'legacy',
     icon: 'verified',

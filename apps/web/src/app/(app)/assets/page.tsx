@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useAssets, useNominees, formatCurrency } from '@/hooks/useSupabaseData';
 import { CATEGORY_INFO, type AssetCategory } from '@/data/mock';
+import { PortfolioInsights } from '@/components/charts/PortfolioInsights';
+import { formatSigned, netWorth as computeNetWorth, totalLiabilities } from '@/lib/assetStats';
 
 const FILTER_TABS: { key: AssetCategory | 'all'; label: string }[] = [
   { key: 'all', label: 'All Assets' },
@@ -15,14 +17,27 @@ const FILTER_TABS: { key: AssetCategory | 'all'; label: string }[] = [
   { key: 'cash', label: 'Cash' },
 ];
 
-const STATUS_COLORS: Record<string, string> = {
-  linked: 'bg-blue-100 text-blue-700',
-  appraised: 'bg-emerald-100 text-emerald-700',
-  secured: 'bg-violet-100 text-violet-700',
-  synced: 'bg-sky-100 text-sky-700',
-  active: 'bg-green-100 text-green-700',
-  pending: 'bg-amber-100 text-amber-700',
-};
+/**
+ * Category badges are deliberately neutral. They used to be coloured by
+ * asset.status while displaying the category label, so the colour encoded one
+ * thing and the text another -- and those raw palette classes never adapted to
+ * dark mode. Liabilities keep a tint because "this row is a debt" is real
+ * meaning, not decoration.
+ *
+ * The tint uses color-mix rather than a `/10` opacity modifier: Tailwind cannot
+ * apply an alpha channel to a bare var() colour, so it silently drops those
+ * utilities and the background would come out transparent.
+ */
+function categoryBadgeStyle(category: AssetCategory) {
+  return category === 'liabilities'
+    ? {
+        className: 'text-status-alert',
+        style: {
+          background: 'color-mix(in srgb, var(--color-status-alert) 14%, var(--chart-surface))',
+        },
+      }
+    : { className: 'bg-surface-container text-on-surface-variant', style: undefined };
+}
 
 export default function AssetsPage() {
   const [activeFilter, setActiveFilter] = useState<AssetCategory | 'all'>('all');
@@ -30,7 +45,8 @@ export default function AssetsPage() {
   const { assets, loading } = useAssets();
   const { nominees } = useNominees();
 
-  const netWorth = assets.reduce((sum, a) => sum + (a.value ?? 0), 0);
+  const netWorth = computeNetWorth(assets);
+  const liabilities = totalLiabilities(assets);
 
   const filtered = assets.filter((a) => {
     const matchesFilter = activeFilter === 'all' || a.category === activeFilter;
@@ -74,7 +90,9 @@ export default function AssetsPage() {
         <div className="bg-surface-container-lowest rounded-xl p-5">
           <p className="text-xs text-on-surface-variant uppercase tracking-wider mb-1">Total Portfolio</p>
           <p className="text-2xl font-manrope font-bold text-on-surface">{formatCurrency(netWorth)}</p>
-          <p className="text-xs text-status-secure mt-1">↗ 1.2% this month</p>
+          <p className="text-xs text-on-surface-variant mt-1">
+            {liabilities < 0 ? `Net of ${formatSigned(liabilities)} liabilities` : 'No liabilities recorded'}
+          </p>
         </div>
         <div className="bg-surface-container-lowest rounded-xl p-5">
           <p className="text-xs text-on-surface-variant uppercase tracking-wider mb-1">Beneficiaries</p>
@@ -89,11 +107,18 @@ export default function AssetsPage() {
           </div>
           <p className="text-xs text-on-surface-variant mt-1">Verified 14h ago</p>
         </div>
+        {/* on-primary rather than white: in dark mode bg-primary is #a8bcd0, where
+            white text sits at ~1.7:1. The 88% itself is still hardcoded. */}
         <div className="bg-primary rounded-xl p-5">
-          <p className="text-xs text-white/70 uppercase tracking-wider mb-1">Readiness Score</p>
-          <p className="text-3xl font-manrope font-bold text-white">88%</p>
+          <p className="text-xs text-on-primary opacity-70 uppercase tracking-wider mb-1">
+            Readiness Score
+          </p>
+          <p className="text-3xl font-manrope font-bold text-on-primary">88%</p>
         </div>
       </div>
+
+      {/* Portfolio insights — above the tab row, so the tabs scope only the table */}
+      <PortfolioInsights assets={assets} />
 
       {/* Filters */}
       <div className="flex items-center justify-between mb-4">
@@ -137,6 +162,7 @@ export default function AssetsPage() {
           <tbody>
             {filtered.map((asset) => {
               const info = CATEGORY_INFO[asset.category];
+              const badge = categoryBadgeStyle(asset.category);
               return (
                 <tr key={asset.id} className="border-b border-surface-container last:border-0 hover:bg-surface-container-low/50 transition-colors">
                   <td className="px-6 py-4">
@@ -151,7 +177,10 @@ export default function AssetsPage() {
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <span className={`text-xs font-semibold px-2 py-1 rounded uppercase tracking-wider ${STATUS_COLORS[asset.status] || 'bg-gray-100 text-gray-700'}`}>
+                    <span
+                      className={`text-xs font-semibold px-2 py-1 rounded uppercase tracking-wider ${badge.className}`}
+                      style={badge.style}
+                    >
                       {info.label}
                     </span>
                   </td>

@@ -1,0 +1,7 @@
+{
+  "name": "ar-vault",
+  "platforms": ["apple"],
+  "apple": {
+    "modules": ["ARVaultModule"]
+  }
+}

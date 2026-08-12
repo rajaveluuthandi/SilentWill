@@ -145,6 +145,19 @@ export default function AssetsScreen() {
             {verifiedNominees} Nominees Verified
           </Text>
         </View>
+
+        <Pressable
+          onPress={() => router.push('/ar')}
+          accessibilityRole="button"
+          accessibilityLabel="View your legacy in augmented reality"
+          className="mt-4 flex-row items-center justify-center bg-white/15 rounded-xl h-11"
+          style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}
+        >
+          <MaterialIcons name="view-in-ar" size={18} color="#ffffff" />
+          <Text className="text-sm text-white ml-2" style={{ fontFamily: 'Inter_600SemiBold' }}>
+            View in AR
+          </Text>
+        </Pressable>
       </View>
 
       {/* Search */}

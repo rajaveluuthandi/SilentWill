@@ -34,6 +34,17 @@ const config: Config = {
           pending: 'var(--color-status-pending)',
           alert: 'var(--color-status-alert)',
         },
+        chart: {
+          surface: 'var(--chart-surface)',
+          'share-1': 'var(--chart-share-1)',
+          'share-2': 'var(--chart-share-2)',
+          'share-3': 'var(--chart-share-3)',
+          'share-4': 'var(--chart-share-4)',
+          'share-other': 'var(--chart-share-other)',
+          accent: 'var(--chart-accent)',
+          negative: 'var(--chart-negative)',
+          track: 'var(--chart-track)',
+        },
       },
       fontFamily: {
         manrope: ['Manrope', 'sans-serif'],

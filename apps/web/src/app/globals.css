@@ -27,6 +27,23 @@
     --color-status-secure: #2d8a5e;
     --color-status-pending: #d4a843;
     --color-status-alert: #c45a4a;
+
+    /* Chart tokens. Charts render on surface-container-lowest, so that is the
+       chart surface. Slots are named by RANK ROLE, not by lightness: the
+       biggest segment must be the ramp step furthest from the surface, which
+       is the darkest on white and the lightest on near-black. All values below
+       are validated by the dataviz validator against these exact surfaces.
+       The brand accents cannot be used here -- their OKLCH chroma is 0.036-0.044
+       (floor 0.10), so they render as gray. */
+    --chart-surface: #ffffff;
+    --chart-share-1: #104281; /* largest named category */
+    --chart-share-2: #1c5cab;
+    --chart-share-3: #2a78d6;
+    --chart-share-4: #5598e7; /* 4th named category */
+    --chart-share-other: #a7b4bc; /* residual: neutral, makes no size claim */
+    --chart-accent: #2a78d6; /* single-series bars */
+    --chart-negative: #e34948; /* liabilities pole only */
+    --chart-track: #cde2fb; /* meter track: lighter step of the same ramp */
   }
 
   .dark {
@@ -51,5 +68,17 @@
     --color-status-secure: #4cc488;
     --color-status-pending: #e8c266;
     --color-status-alert: #e07a6a;
+
+    /* Dark is a SELECTED palette, not an automatic flip -- the ramp direction
+       inverts so the largest segment stays furthest from the surface. */
+    --chart-surface: #0c1014;
+    --chart-share-1: #cde2fb;
+    --chart-share-2: #9ec5f4;
+    --chart-share-3: #6da7ec;
+    --chart-share-4: #2a78d6;
+    --chart-share-other: #43505a;
+    --chart-accent: #3987e5;
+    --chart-negative: #e66767;
+    --chart-track: #104281;
   }
 }

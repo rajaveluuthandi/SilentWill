@@ -10,7 +10,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.silentwill.app"
+      "bundleIdentifier": "com.silentwill.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "SilentWill uses the camera to place a 3D view of your assets in the room around you. No photos or video are recorded or uploaded."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -22,7 +25,10 @@
       "typedRoutes": true
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      "expo-sqlite",
+      "./plugins/withFmtCxx17",
+      "./plugins/withDevelopmentTeam"
     ]
   }
 }
