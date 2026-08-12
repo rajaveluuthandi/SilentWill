@@ -112,9 +112,31 @@ export default function AuthScreen() {
 
           {mode === 'idle' ? (
             <>
+              {/* Sign-in needs a backend. Buttons that look live but fail
+                  silently are worse than saying the backend is off. */}
+              {!auth.isBackendConfigured && (
+                <View className="mb-6 rounded-xl bg-surface-container-lowest p-4">
+                  <Text
+                    className="text-sm text-on-surface"
+                    style={{ fontFamily: 'Inter_600SemiBold' }}
+                  >
+                    Backend disabled
+                  </Text>
+                  <Text
+                    className="text-xs text-on-surface-variant mt-1"
+                    style={{ fontFamily: 'Inter' }}
+                  >
+                    No Supabase project is configured, so accounts are unavailable. Use Demo
+                    Mode below to explore with sample data.
+                  </Text>
+                </View>
+              )}
+
               <View className="gap-3 mb-8">
                 <Pressable
                   onPress={() => { resetForm(); setMode('signIn'); }}
+                  disabled={!auth.isBackendConfigured}
+                  style={{ opacity: auth.isBackendConfigured ? 1 : 0.4 }}
                   className="h-14 rounded-xl bg-primary items-center justify-center flex-row gap-2"
                 >
                   <MaterialIcons name="login" size={20} color="#ffffff" />
@@ -128,6 +150,8 @@ export default function AuthScreen() {
 
                 <Pressable
                   onPress={() => { resetForm(); setMode('signUp'); }}
+                  disabled={!auth.isBackendConfigured}
+                  style={{ opacity: auth.isBackendConfigured ? 1 : 0.4 }}
                   className="h-14 rounded-xl bg-surface-container-lowest items-center justify-center flex-row gap-2"
                 >
                   <MaterialIcons name="person-add" size={20} color="#4f6073" />
@@ -150,6 +174,8 @@ export default function AuthScreen() {
 
               <Pressable
                 onPress={() => auth.signInWithGoogle()}
+                disabled={!auth.isBackendConfigured}
+                style={{ opacity: auth.isBackendConfigured ? 1 : 0.4 }}
                 className="h-14 rounded-xl bg-surface-container-lowest items-center justify-center flex-row gap-3 mb-4"
               >
                 <Text className="text-on-surface text-base" style={{ fontFamily: 'Inter_600SemiBold' }}>

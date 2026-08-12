@@ -40,7 +40,7 @@ function useVaultKey() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (isDemo || !session) {
+    if (isDemo || !supabase || !session) {
       setReady(true);
       return;
     }
@@ -60,7 +60,7 @@ export function useAssets(category?: AssetCategory) {
   const [loading, setLoading] = useState(true);
 
   const refresh = useCallback(async () => {
-    if (isDemo) {
+    if (isDemo || !supabase) {
       const mock = category
         ? MOCK_ASSETS.filter((a) => a.category === category)
         : MOCK_ASSETS;
@@ -84,7 +84,7 @@ export function useAssets(category?: AssetCategory) {
 
   const addAsset = useCallback(
     async (asset: Omit<Asset, 'id' | 'created_at' | 'updated_at'>) => {
-      if (isDemo) return { error: 'Cannot add assets in demo mode' };
+      if (isDemo || !supabase) return { error: 'Cannot add assets in demo mode' };
       const encrypted = key ? await encryptSensitiveFields(key, asset) : asset;
       const { data, error } = await createAsset(supabase, encrypted);
       if (!error && data) {
@@ -103,7 +103,7 @@ export function useAssets(category?: AssetCategory) {
 
   const removeAsset = useCallback(
     async (id: string) => {
-      if (isDemo) return { error: 'Cannot delete assets in demo mode' };
+      if (isDemo || !supabase) return { error: 'Cannot delete assets in demo mode' };
       const { error } = await deleteAsset(supabase, id);
       if (!error) await refresh();
       return { error: error?.message ?? null };
@@ -120,7 +120,7 @@ export function useNominees() {
   const [loading, setLoading] = useState(true);
 
   const refresh = useCallback(async () => {
-    if (isDemo) {
+    if (isDemo || !supabase) {
       setNominees(MOCK_NOMINEES as unknown as Nominee[]);
       setLoading(false);
       return;
@@ -137,7 +137,7 @@ export function useNominees() {
 
   const addNominee = useCallback(
     async (nominee: Omit<Nominee, 'id' | 'created_at' | 'updated_at'>) => {
-      if (isDemo) return { error: 'Cannot add nominees in demo mode' };
+      if (isDemo || !supabase) return { error: 'Cannot add nominees in demo mode' };
       const { data, error } = await createNominee(supabase, nominee);
       if (!error && data) {
         await logActivity(supabase, {
@@ -155,7 +155,7 @@ export function useNominees() {
 
   const removeNominee = useCallback(
     async (id: string) => {
-      if (isDemo) return { error: 'Cannot delete nominees in demo mode' };
+      if (isDemo || !supabase) return { error: 'Cannot delete nominees in demo mode' };
       const { error } = await deleteNominee(supabase, id);
       if (!error) await refresh();
       return { error: error?.message ?? null };
@@ -172,7 +172,7 @@ export function useActivityLog() {
   const [loading, setLoading] = useState(true);
 
   const refresh = useCallback(async () => {
-    if (isDemo) {
+    if (isDemo || !supabase) {
       setActivity(MOCK_ACTIVITY as unknown as ActivityLog[]);
       setLoading(false);
       return;
@@ -208,7 +208,7 @@ export function useVerification() {
   const [loading, setLoading] = useState(true);
 
   const refresh = useCallback(async () => {
-    if (isDemo) {
+    if (isDemo || !supabase) {
       setSettings(DEMO_VERIFICATION);
       setLoading(false);
       return;
@@ -229,14 +229,14 @@ export function useVerification() {
   }, [refresh]);
 
   const verify = useCallback(async () => {
-    if (isDemo || !settings) return;
+    if (isDemo || !supabase || !settings) return;
     const { data } = await verifyHeartbeat(supabase, settings.id, settings.interval_months);
     if (data) setSettings(data);
   }, [isDemo, settings]);
 
   const changeInterval = useCallback(
     async (months: number) => {
-      if (isDemo || !settings) return;
+      if (isDemo || !supabase || !settings) return;
       const { data } = await updateVerificationInterval(supabase, settings.id, months);
       if (data) setSettings(data);
     },

@@ -22,7 +22,7 @@ export function useVaultReport() {
   const [generating, setGenerating] = useState(false);
 
   const generateAndPreview = useCallback(async () => {
-    if (isDemo || !user) return;
+    if (isDemo || !supabase || !user) return;
     setGenerating(true);
 
     const key = await getOrCreateVaultKey(supabase);

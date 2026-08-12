@@ -97,16 +97,30 @@ export default function AuthPage() {
 
         {mode === 'idle' ? (
           <>
+            {/* Sign-in needs a backend. Leaving three live-looking buttons that
+                fail silently is worse than saying the backend is off. */}
+            {!auth.isBackendConfigured && (
+              <div className="mb-6 rounded-xl border border-outline-variant bg-surface-container-lowest p-4">
+                <p className="text-sm font-semibold text-on-surface">Backend disabled</p>
+                <p className="text-xs text-on-surface-variant mt-1 leading-5">
+                  No Supabase project is configured, so accounts are unavailable. Use Demo
+                  Mode below to explore with sample data.
+                </p>
+              </div>
+            )}
+
             <div className="space-y-3 mb-6">
               <button
                 onClick={() => { resetForm(); setMode('signIn'); }}
-                className="w-full h-14 rounded-xl bg-primary text-on-primary font-inter font-semibold text-base flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+                disabled={!auth.isBackendConfigured}
+                className="w-full h-14 rounded-xl bg-primary text-on-primary font-inter font-semibold text-base flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Sign In
               </button>
               <button
                 onClick={() => { resetForm(); setMode('signUp'); }}
-                className="w-full h-14 rounded-xl bg-surface-container-lowest text-primary font-inter font-semibold text-base flex items-center justify-center gap-2 border border-outline-variant hover:bg-surface-container transition-colors"
+                disabled={!auth.isBackendConfigured}
+                className="w-full h-14 rounded-xl bg-surface-container-lowest text-primary font-inter font-semibold text-base flex items-center justify-center gap-2 border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Sign Up
               </button>
@@ -120,7 +134,8 @@ export default function AuthPage() {
 
             <button
               onClick={() => auth.signInWithGoogle()}
-              className="w-full h-14 rounded-xl bg-surface-container-lowest text-on-surface font-inter font-semibold text-base flex items-center justify-center gap-3 border border-outline-variant hover:bg-surface-container transition-colors mb-4"
+              disabled={!auth.isBackendConfigured}
+              className="w-full h-14 rounded-xl bg-surface-container-lowest text-on-surface font-inter font-semibold text-base flex items-center justify-center gap-3 border border-outline-variant hover:bg-surface-container transition-colors mb-4 disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>

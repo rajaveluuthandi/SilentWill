@@ -8,6 +8,13 @@ export default function AuthCallbackPage() {
   const router = useRouter();
 
   useEffect(() => {
+    // OAuth is unreachable with no backend, but this route can still be hit
+    // directly (a stale redirect, a bookmark) — bounce instead of throwing.
+    if (!supabase) {
+      router.replace('/');
+      return;
+    }
+
     const code = new URLSearchParams(window.location.search).get('code');
     if (code) {
       supabase.auth.exchangeCodeForSession(code).then(({ error }) => {

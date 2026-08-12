@@ -1,16 +1,20 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { makeRedirectUri } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
-import { supabase } from '../lib/supabase';
+import { supabase, isBackendConfigured } from '../lib/supabase';
 import { clearAllData } from '../lib/database';
 import type { Session, User } from '@supabase/supabase-js';
 
 WebBrowser.maybeCompleteAuthSession();
 
+const NO_BACKEND = 'Backend disabled — running on mock data.';
+
 interface AuthContextValue {
   user: User | null;
   session: Session | null;
   isDemo: boolean;
+  /** False when no Supabase backend is configured; sign-in cannot work. */
+  isBackendConfigured: boolean;
   isLoading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signUp: (email: string, password: string) => Promise<{ error: string | null }>;
@@ -23,10 +27,19 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
-  const [isDemo, setIsDemo] = useState(false);
+  // Seeded on the FIRST render, not in an effect: app/index.tsx redirects on
+  // `session || isDemo`, so deferring this would flash the auth screen.
+  const [isDemo, setIsDemo] = useState(!isBackendConfigured);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // No backend: nothing to restore, nothing to subscribe to. A faked listener
+    // would be worse — the cleanup below unsubscribes it.
+    if (!supabase) {
+      setIsLoading(false);
+      return;
+    }
+
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session);
       setIsLoading(false);
@@ -42,16 +55,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signIn = useCallback(async (email: string, password: string) => {
+    if (!supabase) return { error: NO_BACKEND };
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     return { error: error?.message ?? null };
   }, []);
 
   const signUp = useCallback(async (email: string, password: string) => {
+    if (!supabase) return { error: NO_BACKEND };
     const { error } = await supabase.auth.signUp({ email, password });
     return { error: error?.message ?? null };
   }, []);
 
   const signInWithGoogleFn = useCallback(async () => {
+    if (!supabase) return;
     const redirectTo = makeRedirectUri();
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -72,7 +88,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signOutFn = useCallback(async () => {
-    await supabase.auth.signOut();
+    // clearAllData still runs with no backend — the local SQLite cache is
+    // independent of Supabase, and leaving decrypted rows behind on sign-out
+    // would defeat the point of clearing.
+    if (supabase) await supabase.auth.signOut();
     await clearAllData();
     setIsDemo(false);
   }, []);
@@ -87,6 +106,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         user: session?.user ?? null,
         session,
         isDemo,
+        isBackendConfigured,
         isLoading,
         signIn,
         signUp,
